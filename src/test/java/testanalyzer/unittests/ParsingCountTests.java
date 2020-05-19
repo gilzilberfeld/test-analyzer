@@ -3,6 +3,8 @@ package testanalyzer.unittests;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import java.io.FileNotFoundException;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,17 +21,18 @@ class ParsingCountTests {
 	
 	@Test
 	void zero_on_empty_class() throws Exception {
-		var tests = TestsLoader.load("EmptyClass");
+		var tests = TestsLoader.loadClass("EmptyClass");
+		assertThat(tests.getCount(), is(0));
+	}
+	
+	
+	@Test
+	void zero_on_non_test_class() throws FileNotFoundException {
+		var tests = TestsLoader.loadClass("NonTestClass");
 		assertThat(tests.getCount(), is(0));
 	}
 	
 	/*
-	@Test
-	void zero_on_regular_class() {
-		var tests = Tests.load("RegularClass.java");
-		assertThat(tests.getCount(), is(0));
-	}
-	
 	@Test
 	void zero_on_empty_test_class() {
 		assertThat(true, is(false));

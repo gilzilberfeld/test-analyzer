@@ -14,13 +14,12 @@ public class TestsLoader {
 
 	public static String Root;
 
-	public static Tests load(String className) throws FileNotFoundException {
-		CompilationUnit cu = StaticJavaParser.parse(new File(Root+className+".java"));
-		TypeSolver typeSolver = new ReflectionTypeSolver();
-
-		return new Tests( new JavaParserClassDeclaration(
-						Navigator.demandClass(cu, className), 
-						typeSolver));
+	public static Tests loadClass(String className) throws FileNotFoundException {
+		String filePath = Root+className+".java";
+		File file = new File(filePath);
+		TestResolver resolver = new TestResolver(file,className);
+		
+		return new Tests(resolver);
 	}
 
 }
