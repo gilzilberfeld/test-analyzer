@@ -32,17 +32,13 @@ class ParsingCountTests {
 		assertThat(tests.getCount(), is(0));
 	}
 	
+	
+	@Test
+	void one_on_test_class_with_one_test() throws FileNotFoundException {
+		var tests = TestsLoader.loadClass("SingleTest");
+		assertThat(tests.getCount(), is(1));
+	}
 	/*
-	@Test
-	void zero_on_empty_test_class() {
-		assertThat(true, is(false));
-	}
-	
-	@Test
-	void one_on_test_class_with_one_test() {
-		assertThat(true, is(false));
-	}
-	
 	@Test
 	void one_on_test_class_with_one_test_and_one_method() {
 		assertThat(true, is(false));
