@@ -1,16 +1,33 @@
 package testanalyzer.unittests;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import testanalyzer.TestsLoader;
+
 class ParsingCountTests {
 
-	/*
-	@Test
-	void zero_on_empty_class() {
-		Tests.load(file);
+	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/";
+
+	@BeforeAll
+	public static void setup() {
+		TestsLoader.Root = ROOT_PATH;
 	}
 	
 	@Test
+	void zero_on_empty_class() throws Exception {
+		var tests = TestsLoader.load("EmptyClass");
+		assertThat(tests.getCount(), is(0));
+	}
+	
+	/*
+	@Test
 	void zero_on_regular_class() {
-		assertThat(true, is(false));
+		var tests = Tests.load("RegularClass.java");
+		assertThat(tests.getCount(), is(0));
 	}
 	
 	@Test
