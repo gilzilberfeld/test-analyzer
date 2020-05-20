@@ -9,8 +9,18 @@ public class TestCounter extends VoidVisitorAdapter<Void> {
 
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
-		if (method.getAnnotationByName("Test").isPresent()) {
-        	numberOfTests++;
+		if (isTest(method)) {
+			if (!Ignored(method)) {
+				numberOfTests++;
+			}
         }
+	}
+
+	private boolean Ignored(MethodDeclaration method) {
+		return method.getAnnotationByName("Disabled").isPresent();
+	}
+
+	private boolean isTest(MethodDeclaration method) {
+		return method.getAnnotationByName("Test").isPresent();
 	}
 }

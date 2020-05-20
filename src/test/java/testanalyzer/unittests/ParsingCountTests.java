@@ -45,12 +45,14 @@ class ParsingCountTests {
 		assertThat(tests.getCount(), is(1));
 	}
 	
-	/*
+	
 	@Test
-	void zero_on_ignored_tests() {
-		assertThat(true, is(false));
+	void zero_on_ignored_tests() throws FileNotFoundException {
+		var tests = TestsLoader.loadClass("SingleIgnoredTest");
+		assertThat(tests.getCount(), is(0));
 	}
 	
+	/*
 	@Test
 	void two_on_test_class_with_two_tests_and_three_methods() {
 		assertThat(true, is(false));
