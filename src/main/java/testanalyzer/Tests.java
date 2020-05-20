@@ -1,5 +1,7 @@
 package testanalyzer;
 
+import java.util.List;
+
 import testanalyzer.parsing.TestResolver;
 
 public class Tests {
@@ -17,4 +19,10 @@ public class Tests {
 		return resolver.getNumberOfTests();
 	}
 
+//	public Quality qualityDataFor(int i) {
+////		List<Quality> qualityList = resolver.getQuality();
+////		return qualityList.get(0);
+//	}
+
+	
 }

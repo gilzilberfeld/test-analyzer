@@ -17,7 +17,8 @@ public class TestCounter extends VoidVisitorAdapter<Void> {
 	}
 
 	private boolean Ignored(MethodDeclaration method) {
-		return method.getAnnotationByName("Disabled").isPresent();
+		return method.getAnnotationByName("Disabled").isPresent() || 
+				method.getAnnotationByName("Ignore").isPresent()	;
 	}
 
 	private boolean isTest(MethodDeclaration method) {

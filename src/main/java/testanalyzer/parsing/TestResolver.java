@@ -2,6 +2,7 @@ package testanalyzer.parsing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -10,6 +11,8 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.symbolsolver.javaparser.Navigator;
 import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserClassDeclaration;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+
+import testanalyzer.Quality;
 
 public class TestResolver {
 
@@ -36,6 +39,13 @@ public class TestResolver {
 		cu.accept(visitor, null);
 		return visitor.numberOfTests;
 	}
+
+
+//	public List<Quality> getQuality() {
+//		QualityCounter visitor = new QualityCounter();
+//		cu.accept(visitor, null);
+//		return visitor.QualityData;
+//	}
 
 
 }

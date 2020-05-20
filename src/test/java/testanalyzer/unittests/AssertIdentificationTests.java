@@ -1,6 +1,10 @@
 package testanalyzer.unittests;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import testanalyzer.Tests;
 import testanalyzer.TestsLoader;
 
-class ContainingAsserts {
+class AssertIdentificationTests{
 
 	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/";
 	private Tests tests;
@@ -18,17 +22,28 @@ class ContainingAsserts {
 		TestsLoader.Root = ROOT_PATH;
 	}
 
+	/*
 	@Test
-	void test_contains_a_single_assert() {
+	void zero_when_contains_no_asserts() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("SingleTest");
+		assertThat(tests.qualityDataFor(0).assertCount, is(0));
+	}
+	
+	@Test
+	void one_when_contains_a_single_assert() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("SingleTestWithAssert");
+		assertThat(tests.test(0).assertCount, is(1));
 		
 	}
-	
+
+
+
 	@Test
-	void test_contains_a_two_asserts() {
+	void two_when_contains_a_two_asserts() {
 	}
 	
 	@Test
-	void test_contains_no_asserts() {
+	void one_when_contains_expected() {
 	}
 	
 	@Test
@@ -43,4 +58,5 @@ class ContainingAsserts {
 	void test_contains_perform_and_checks_status_and_response() {
 	}
 
+ */
 }

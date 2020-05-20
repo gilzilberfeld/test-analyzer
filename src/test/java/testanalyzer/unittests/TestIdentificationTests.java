@@ -60,16 +60,18 @@ class TestIdentificationTests {
 		tests = TestsLoader.loadClass("ComboTest");
 		countShouldBe(2);
 	}
+	
 	private void countShouldBe(int expected) {
 		assertThat(tests.getCount(), is(expected));
 	}
 
-	/*
 	@Test
 	void zero_on_ignored_tests_junit4() throws FileNotFoundException {
-		var tests = TestsLoader.loadClass("SingleIgnoredTestJUnit4");
+		var tests = TestsLoader.loadClass("SingleIgnoredJunit4Test");
 		assertThat(tests.getCount(), is(0));
 	}
+
+	/*
 	
 Spring identification: Can do slices, how are "regular" API tests written in bank?
 	
