@@ -19,7 +19,7 @@ public class TestResolver {
 	private CompilationUnit cu;
 	private JavaParserClassDeclaration cd;
 	private boolean hasTestMethods;
-	
+	private int numberOfTests;
 	
 	public TestResolver(File file, String className) throws FileNotFoundException {
 		
@@ -45,7 +45,21 @@ public class TestResolver {
 	}
 
 	public int getNumberOfTests() {
-		return cd.getDeclaredMethods().size();	
+		numberOfTests = 0;
+        goOverTests();
+		return numberOfTests;	
+	}
+
+
+	private void goOverTests() {
+		cu.accept(new VoidVisitorAdapter<Void>() {
+            @Override
+            public void visit(MethodDeclaration method, Void arg) {
+                if (method.getAnnotationByName("Test").isPresent()) {
+                	numberOfTests++;
+                }
+            }
+        }, null);
 	}
 
 
