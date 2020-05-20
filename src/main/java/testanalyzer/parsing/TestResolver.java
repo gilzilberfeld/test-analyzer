@@ -2,10 +2,13 @@ package testanalyzer.parsing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.github.javaparser.symbolsolver.javaparser.Navigator;
@@ -41,11 +44,20 @@ public class TestResolver {
 	}
 
 
-//	public List<Quality> getQuality() {
-//		QualityCounter visitor = new QualityCounter();
-//		cu.accept(visitor, null);
-//		return visitor.QualityData;
-//	}
+	public List<Quality> getTestQualityData() {
+		List<Quality> qualityData = new ArrayList<Quality>();
+		QualityCounter visitor = new QualityCounter();
+	
+		cu.accept(visitor, null);
+//		Optional<ClassOrInterfaceDeclaration> classX = cu.getClassByName("X");
+//
+//        for (MethodDeclaration method : classX.getMethods()) {
+//            // Make the visitor go through everything inside the method.
+//            method.accept(new MethodCallVisitor(), null);
+//        }
+		qualityData.add(visitor.result);
+		return qualityData;
+	}
 
 
 }

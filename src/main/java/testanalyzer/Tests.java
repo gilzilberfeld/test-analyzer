@@ -19,10 +19,10 @@ public class Tests {
 		return resolver.getNumberOfTests();
 	}
 
-//	public Quality qualityDataFor(int i) {
-////		List<Quality> qualityList = resolver.getQuality();
-////		return qualityList.get(0);
-//	}
+	public Quality qualityDataFor(int i) {
+		List<Quality> qualityList = resolver.getTestQualityData();
+		return qualityList.get(0);
+	}
 
 	
 }

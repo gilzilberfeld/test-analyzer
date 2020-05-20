@@ -22,6 +22,18 @@ class AssertIdentificationTests{
 		TestsLoader.Root = ROOT_PATH;
 	}
 
+	@Test
+	void one_when_contains_expected_annotation() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("SingleTestWithExpected");
+		assertThat(tests.qualityDataFor(0).assertCount, is(1));
+	}
+
+	@Test
+	void zero_when_ignored_and_contains_expected_annotation() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("SingleIgnoredTestWithExpected");
+		assertThat(tests.qualityDataFor(0).assertCount, is(0));
+	}
+
 	/*
 	@Test
 	void zero_when_contains_no_asserts() throws FileNotFoundException {
@@ -29,6 +41,10 @@ class AssertIdentificationTests{
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 	
+	void one_when_contains_expected_rule() {
+		// check example, could be an explicit assert there
+	}
+
 	@Test
 	void one_when_contains_a_single_assert() throws FileNotFoundException {
 		tests = TestsLoader.loadClass("SingleTestWithAssert");
@@ -42,9 +58,6 @@ class AssertIdentificationTests{
 	void two_when_contains_a_two_asserts() {
 	}
 	
-	@Test
-	void one_when_contains_expected() {
-	}
 	
 	@Test
 	void test_contains_perform_and_checks_status_only() {
