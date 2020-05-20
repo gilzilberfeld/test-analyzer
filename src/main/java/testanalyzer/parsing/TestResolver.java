@@ -38,7 +38,7 @@ public class TestResolver {
 	}
 
 	public int getNumberOfTests() {
-		QualityCounter visitor = new QualityCounter();
+		QualityChecker visitor = new QualityChecker();
 		cu.accept(visitor, null);
 		return visitor.numberOfValidTests;
 	}
@@ -46,7 +46,7 @@ public class TestResolver {
 
 	public List<Quality> getTestQualityData() {
 		List<Quality> qualityData = new ArrayList<Quality>();
-		QualityCounter visitor = new QualityCounter();
+		QualityChecker visitor = new QualityChecker();
 	
 		cu.accept(visitor, null);
 //		Optional<ClassOrInterfaceDeclaration> classX = cu.getClassByName("X");

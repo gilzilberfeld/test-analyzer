@@ -7,7 +7,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import testanalyzer.Quality;
 
-public class QualityCounter extends VoidVisitorAdapter<Void> {
+public class QualityChecker extends VoidVisitorAdapter<Void> {
 
 	public List<Quality> QualityData;
 	public Quality result = new Quality();
@@ -33,7 +33,7 @@ public class QualityCounter extends VoidVisitorAdapter<Void> {
 	}
 
 	private boolean hasExpected(MethodDeclaration method) {
-		TestExpectedChecker expectedFinder = new TestExpectedChecker();
+		ExpectedChecker expectedFinder = new ExpectedChecker();
 		method.accept(expectedFinder, null);
 		return expectedFinder.hasExpected;
 	}
