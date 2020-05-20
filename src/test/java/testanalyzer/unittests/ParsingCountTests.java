@@ -52,11 +52,19 @@ class ParsingCountTests {
 		assertThat(tests.getCount(), is(0));
 	}
 	
+	@Test
+	void two_on_test_class_with_two_tests_and_three_methods_and_ignored_tests() throws FileNotFoundException {
+		var tests = TestsLoader.loadClass("ComboTest");
+		assertThat(tests.getCount(), is(2));
+	}
+
 	/*
 	@Test
-	void two_on_test_class_with_two_tests_and_three_methods() {
-		assertThat(true, is(false));
+	void zero_on_ignored_tests_junit4() throws FileNotFoundException {
+		var tests = TestsLoader.loadClass("SingleIgnoredTestJUnit4");
+		assertThat(tests.getCount(), is(0));
 	}
+	
 	
 	*/
 
