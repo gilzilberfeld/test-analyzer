@@ -11,16 +11,15 @@ public class QualityCounter extends VoidVisitorAdapter<Void> {
 
 	public List<Quality> QualityData;
 	public Quality result = new Quality();
+	public int numberOfValidTests=0;
 
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
 		if (isTest(method)) {
-			if (!Ignored(method)) {
-
-			TestExpectedChecker expectedFinder = new TestExpectedChecker();
-			method.accept(expectedFinder, null);
-			if (expectedFinder.hasExpected)
-				result.assertCount = 1;
+			if (!isIgnored(method)) {
+				if (hasExpected(method))
+					result.assertCount = 1;
+				numberOfValidTests++;
 			}
 		}
 	}
@@ -29,9 +28,14 @@ public class QualityCounter extends VoidVisitorAdapter<Void> {
 		return method.getAnnotationByName("Test").isPresent();
 	}
 
-	private boolean Ignored(MethodDeclaration method) {
-		return method.getAnnotationByName("Disabled").isPresent() || 
-				method.getAnnotationByName("Ignore").isPresent()	;
+	private boolean isIgnored(MethodDeclaration method) {
+		return method.getAnnotationByName("Disabled").isPresent() || method.getAnnotationByName("Ignore").isPresent();
+	}
+
+	private boolean hasExpected(MethodDeclaration method) {
+		TestExpectedChecker expectedFinder = new TestExpectedChecker();
+		method.accept(expectedFinder, null);
+		return expectedFinder.hasExpected;
 	}
 
 }

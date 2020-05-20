@@ -38,9 +38,9 @@ public class TestResolver {
 	}
 
 	public int getNumberOfTests() {
-		TestCounter visitor = new TestCounter();
+		QualityCounter visitor = new QualityCounter();
 		cu.accept(visitor, null);
-		return visitor.numberOfTests;
+		return visitor.numberOfValidTests;
 	}
 
 
