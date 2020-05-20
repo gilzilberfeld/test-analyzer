@@ -10,6 +10,8 @@ import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParse
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
+import testanalyzer.parsing.TestResolver;
+
 public class TestsLoader {
 
 	public static String Root;
