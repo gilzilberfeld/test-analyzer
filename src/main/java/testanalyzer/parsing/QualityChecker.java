@@ -1,8 +1,5 @@
 package testanalyzer.parsing;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
@@ -48,9 +45,12 @@ public class QualityChecker extends VoidVisitorAdapter<Void> {
 	}
 
 	private boolean hasExpected(MethodDeclaration method) {
-		ExpectedChecker expectedFinder = new ExpectedChecker();
-		method.accept(expectedFinder, null);
-		return expectedFinder.hasExpected;
+		ExpectedJUnit4Checker expectedAnnotationFinder = new ExpectedJUnit4Checker();
+		method.accept(expectedAnnotationFinder, null);
+		ExpectedRuleJUnit4Checker expectedRuleFinder = new ExpectedRuleJUnit4Checker();
+		method.accept(expectedRuleFinder, null);
+		return expectedAnnotationFinder.hasExpectedAnnotation ||
+				expectedRuleFinder.hasExpectedRule;
 	}
 
 }

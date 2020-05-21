@@ -2,7 +2,7 @@ package testanalyzer.examples;
 
 import org.junit.Test;
 
-public class SingleTestWithExpected {
+public class SingleTestWithExpectedJUnit4 {
 
 	@Test(expected=NullPointerException.class)
 	public void test1() {
