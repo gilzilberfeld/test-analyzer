@@ -16,10 +16,9 @@ public class TestClassLocator {
 
 	public static String Root;
 
-	public static Tests loadClass(String className) throws FileNotFoundException {
+	public static Tests loadTestClass(String className) throws FileNotFoundException {
 		String filePath = Root+className+".java";
-		TestResolver resolver = new TestResolver(className,filePath);
-		
+		TestResolver resolver = new TestResolver(filePath);
 		return new Tests(resolver);
 	}
 

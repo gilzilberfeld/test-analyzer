@@ -23,7 +23,7 @@ class TestIdentificationTests {
 	
 	@Test
 	void zero_on_empty_class() throws Exception {
-		tests = TestClassLocator.loadClass("EmptyClass");
+		tests = TestClassLocator.loadTestClass("EmptyClass");
 		countShouldBe(0);
 	}
 
@@ -31,46 +31,46 @@ class TestIdentificationTests {
 	
 	@Test
 	void zero_on_non_test_class() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("NonTestClass");
+		tests = TestClassLocator.loadTestClass("NonTestClass");
 		countShouldBe(0);
 	}
 	
 	
 	@Test
 	void one_on_test_class_with_one_test() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleTest");
+		tests = TestClassLocator.loadTestClass("SingleTest");
 		countShouldBe(1);
 	}
 
 	@Test
 	void one_on_test_class_with_one_test_and_one_method() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleTestOneMethod");
+		tests = TestClassLocator.loadTestClass("SingleTestOneMethod");
 		countShouldBe(1);
 	}
 	
 	
 	@Test
 	void zero_on_ignored_tests() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleIgnoredTest");
+		tests = TestClassLocator.loadTestClass("SingleIgnoredTest");
 		countShouldBe(0);
 	}
 	
 	@Test
 	void two_on_test_class_with_two_tests_and_three_methods_and_ignored_tests() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("ComboTest");
+		tests = TestClassLocator.loadTestClass("ComboTest");
 		countShouldBe(2);
 	}
 	
-	private void countShouldBe(int expected) {
-		assertThat(tests.getCount(), is(expected));
-	}
 
 	@Test
 	void zero_on_ignored_tests_junit4() throws FileNotFoundException {
-		var tests = TestClassLocator.loadClass("SingleIgnoredJunit4Test");
-		assertThat(tests.getCount(), is(0));
-	}
+		tests = TestClassLocator.loadTestClass("SingleIgnoredJunit4Test");
+		countShouldBe(0);
+ 	}
 
+	private void countShouldBe(int expected) {
+		assertThat(tests.getCount(), is(expected));
+	}
 	/*
 	
 Spring identification: Can do slices, how are "regular" API tests written in bank?

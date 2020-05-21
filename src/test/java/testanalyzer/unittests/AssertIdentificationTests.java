@@ -24,31 +24,31 @@ class AssertIdentificationTests{
 
 	@Test
 	void one_when_contains_expected_annotation() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleTestWithExpected");
+		tests = TestClassLocator.loadTestClass("SingleTestWithExpected");
 		assertThat(tests.qualityDataFor(0).assertCount, is(1));
 	}
 
 	@Test
 	void zero_when_ignored_and_contains_expected_annotation() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleIgnoredTestWithExpected");
+		tests = TestClassLocator.loadTestClass("SingleIgnoredTestWithExpected");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 
 	@Test
 	void zero_when_contains_no_asserts() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleTest");
+		tests = TestClassLocator.loadTestClass("SingleTest");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 
 	@Test
 	void two_when_contains_two_asserts() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("SingleTestWithTwoAsserts");
+		tests = TestClassLocator.loadTestClass("SingleTestWithTwoAsserts");
 		assertThat(tests.qualityDataFor(0).assertCount, is(2));
 	}
 
 	@Test
 	void one_when_contains_a_single_assert_with_two_tests() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("TwoTestWithOneAssert");
+		tests = TestClassLocator.loadTestClass("TwoTestWithOneAssert");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 		assertThat(tests.qualityDataFor(1).assertCount, is(1));
 	}
@@ -56,7 +56,7 @@ class AssertIdentificationTests{
 	
 	@Test
 	void correct_count_on_combo() throws FileNotFoundException {
-		tests = TestClassLocator.loadClass("TwoTestWithOneAssertAndMethods");
+		tests = TestClassLocator.loadTestClass("TwoTestWithOneAssertAndMethods");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 		assertThat(tests.qualityDataFor(1).assertCount, is(1));
 	}

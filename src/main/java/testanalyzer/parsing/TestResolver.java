@@ -21,14 +21,9 @@ import testanalyzer.TestQuality;
 public class TestResolver {
 
 	private CompilationUnit cu;
-	private JavaParserClassDeclaration cd;
 	
-	public TestResolver(String className, String path) throws FileNotFoundException {
-		File file = new File(path);
-		this.cu = StaticJavaParser.parse(file);
-		this.cd = new JavaParserClassDeclaration(
-					Navigator.demandClass(cu, className), 
-					new ReflectionTypeSolver());
+	public TestResolver(String path) throws FileNotFoundException {
+		this.cu = StaticJavaParser.parse(new File(path));
 	}
 
 	
