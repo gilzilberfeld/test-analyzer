@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.Tests;
-import testanalyzer.TestsLoader;
+import testanalyzer.TestClassLocator;
 
 class TestIdentificationTests {
 
@@ -18,12 +18,12 @@ class TestIdentificationTests {
 
 	@BeforeAll
 	public static void setup() {
-		TestsLoader.Root = ROOT_PATH;
+		TestClassLocator.Root = ROOT_PATH;
 	}
 	
 	@Test
 	void zero_on_empty_class() throws Exception {
-		tests = TestsLoader.loadClass("EmptyClass");
+		tests = TestClassLocator.loadClass("EmptyClass");
 		countShouldBe(0);
 	}
 
@@ -31,33 +31,33 @@ class TestIdentificationTests {
 	
 	@Test
 	void zero_on_non_test_class() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("NonTestClass");
+		tests = TestClassLocator.loadClass("NonTestClass");
 		countShouldBe(0);
 	}
 	
 	
 	@Test
 	void one_on_test_class_with_one_test() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleTest");
+		tests = TestClassLocator.loadClass("SingleTest");
 		countShouldBe(1);
 	}
 
 	@Test
 	void one_on_test_class_with_one_test_and_one_method() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleTestOneMethod");
+		tests = TestClassLocator.loadClass("SingleTestOneMethod");
 		countShouldBe(1);
 	}
 	
 	
 	@Test
 	void zero_on_ignored_tests() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleIgnoredTest");
+		tests = TestClassLocator.loadClass("SingleIgnoredTest");
 		countShouldBe(0);
 	}
 	
 	@Test
 	void two_on_test_class_with_two_tests_and_three_methods_and_ignored_tests() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("ComboTest");
+		tests = TestClassLocator.loadClass("ComboTest");
 		countShouldBe(2);
 	}
 	
@@ -67,7 +67,7 @@ class TestIdentificationTests {
 
 	@Test
 	void zero_on_ignored_tests_junit4() throws FileNotFoundException {
-		var tests = TestsLoader.loadClass("SingleIgnoredJunit4Test");
+		var tests = TestClassLocator.loadClass("SingleIgnoredJunit4Test");
 		assertThat(tests.getCount(), is(0));
 	}
 

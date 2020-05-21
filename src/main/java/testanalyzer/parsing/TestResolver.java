@@ -23,8 +23,8 @@ public class TestResolver {
 	private CompilationUnit cu;
 	private JavaParserClassDeclaration cd;
 	
-	public TestResolver(File file, String className) throws FileNotFoundException {
-		
+	public TestResolver(String className, String path) throws FileNotFoundException {
+		File file = new File(path);
 		this.cu = StaticJavaParser.parse(file);
 		this.cd = new JavaParserClassDeclaration(
 					Navigator.demandClass(cu, className), 

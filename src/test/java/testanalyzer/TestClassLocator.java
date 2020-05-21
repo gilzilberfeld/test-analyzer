@@ -12,14 +12,13 @@ import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeS
 
 import testanalyzer.parsing.TestResolver;
 
-public class TestsLoader {
+public class TestClassLocator {
 
 	public static String Root;
 
 	public static Tests loadClass(String className) throws FileNotFoundException {
 		String filePath = Root+className+".java";
-		File file = new File(filePath);
-		TestResolver resolver = new TestResolver(file,className);
+		TestResolver resolver = new TestResolver(className,filePath);
 		
 		return new Tests(resolver);
 	}

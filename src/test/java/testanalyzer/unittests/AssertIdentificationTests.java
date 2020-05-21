@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.Tests;
-import testanalyzer.TestsLoader;
+import testanalyzer.TestClassLocator;
 
 class AssertIdentificationTests{
 
@@ -19,36 +19,36 @@ class AssertIdentificationTests{
 
 	@BeforeAll
 	public static void setup() {
-		TestsLoader.Root = ROOT_PATH;
+		TestClassLocator.Root = ROOT_PATH;
 	}
 
 	@Test
 	void one_when_contains_expected_annotation() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleTestWithExpected");
+		tests = TestClassLocator.loadClass("SingleTestWithExpected");
 		assertThat(tests.qualityDataFor(0).assertCount, is(1));
 	}
 
 	@Test
 	void zero_when_ignored_and_contains_expected_annotation() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleIgnoredTestWithExpected");
+		tests = TestClassLocator.loadClass("SingleIgnoredTestWithExpected");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 
 	@Test
 	void zero_when_contains_no_asserts() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleTest");
+		tests = TestClassLocator.loadClass("SingleTest");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 
 	@Test
 	void two_when_contains_two_asserts() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleTestWithTwoAsserts");
+		tests = TestClassLocator.loadClass("SingleTestWithTwoAsserts");
 		assertThat(tests.qualityDataFor(0).assertCount, is(2));
 	}
 
 	@Test
 	void one_when_contains_a_single_assert_with_two_tests() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("TwoTestWithOneAssert");
+		tests = TestClassLocator.loadClass("TwoTestWithOneAssert");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 		assertThat(tests.qualityDataFor(1).assertCount, is(1));
 	}
@@ -56,7 +56,7 @@ class AssertIdentificationTests{
 	
 	@Test
 	void correct_count_on_combo() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("TwoTestWithOneAssertAndMethods");
+		tests = TestClassLocator.loadClass("TwoTestWithOneAssertAndMethods");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 		assertThat(tests.qualityDataFor(1).assertCount, is(1));
 	}
