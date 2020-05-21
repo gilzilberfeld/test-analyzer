@@ -34,23 +34,25 @@ class AssertIdentificationTests{
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 
-	/*
 	@Test
 	void zero_when_contains_no_asserts() throws FileNotFoundException {
 		tests = TestsLoader.loadClass("SingleTest");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
+
+	/*
+	@Test
+	void one_when_contains_a_single_assert_with_two_tests() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("TwoTestWithOneAssert");
+		assertThat(tests.qualityDataFor(0).assertCount, is(0));
+		assertThat(tests.qualityDataFor(1).assertCount, is(1));
+	}
+
 	
 	void one_when_contains_expected_rule() {
 		// check example, could be an explicit assert there
 	}
 
-	@Test
-	void one_when_contains_a_single_assert() throws FileNotFoundException {
-		tests = TestsLoader.loadClass("SingleTestWithAssert");
-		assertThat(tests.test(0).assertCount, is(1));
-		
-	}
 
 
 

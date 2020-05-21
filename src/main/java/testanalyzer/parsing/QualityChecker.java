@@ -17,13 +17,25 @@ public class QualityChecker extends VoidVisitorAdapter<Void> {
 	public void visit(MethodDeclaration method, Void arg) {
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
-				if (hasExpected(method))
+				if (hasExpected(method)) {
 					result.assertCount = 1;
+				}
+				result.assertCount += countAsserts(method);
 				numberOfValidTests++;
 			}
 		}
 	}
 
+	
+	private int countAsserts(MethodDeclaration method) {
+		AssertChecker assertChecker = new AssertChecker();
+		method.accept(assertChecker, null);
+		return assertChecker.count;
+	}
+
+
+
+	
 	private boolean isTest(MethodDeclaration method) {
 		return method.getAnnotationByName("Test").isPresent();
 	}

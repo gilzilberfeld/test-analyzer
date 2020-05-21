@@ -47,14 +47,7 @@ public class TestResolver {
 	public List<Quality> getTestQualityData() {
 		List<Quality> qualityData = new ArrayList<Quality>();
 		QualityChecker visitor = new QualityChecker();
-	
 		cu.accept(visitor, null);
-//		Optional<ClassOrInterfaceDeclaration> classX = cu.getClassByName("X");
-//
-//        for (MethodDeclaration method : classX.getMethods()) {
-//            // Make the visitor go through everything inside the method.
-//            method.accept(new MethodCallVisitor(), null);
-//        }
 		qualityData.add(visitor.result);
 		return qualityData;
 	}
