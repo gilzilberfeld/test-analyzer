@@ -1,7 +1,6 @@
 package testanalyzer.parsing;
 
 import com.github.javaparser.ast.expr.MethodCallExpr;
-import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class AssertChecker extends VoidVisitorAdapter<Void> {
@@ -13,6 +12,13 @@ public class AssertChecker extends VoidVisitorAdapter<Void> {
 		String name = method.getName().toString();
 		if (name.contains("assert"))
 			count++;
+		count += countExpects(method);
+	}
+
+	private int countExpects(MethodCallExpr method) {
+		String fullExpression = method.toString();
+		String andExpectTerm = "andExpect\\(";
+		return fullExpression.split(andExpectTerm, -1).length-1;
 	}
 
 }

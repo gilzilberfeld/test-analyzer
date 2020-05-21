@@ -15,9 +15,6 @@ public class IgnoreTests {
 
 	private Tests tests;
 
-	@BeforeAll
-	public static void setup() {
-	}
 
 	@Test
 	void zero_on_ignored_tests() throws FileNotFoundException {

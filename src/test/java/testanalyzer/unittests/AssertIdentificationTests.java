@@ -16,10 +16,6 @@ class AssertIdentificationTests{
 
 	private Tests tests;
 
-	@BeforeAll
-	public static void setup() {
-	}
-
 	@Test
 	void zero_when_contains_no_asserts() throws FileNotFoundException {
 		tests = TestClassLocator.loadTestClass("SingleTest");
@@ -49,27 +45,7 @@ class AssertIdentificationTests{
 	
 
 	/*
-	
 
-
-
-
-	@Test
-	void two_when_contains_a_two_asserts() {
-	}
-	
-	
-	@Test
-	void test_contains_perform_and_checks_status_only() {
-	}
-
-	@Test
-	void test_contains_perform_and_does_not_check() {
-	}
-	
-	@Test
-	void test_contains_perform_and_checks_status_and_response() {
-	}
 	
 	@Test
 	void test_only_assertnotnull() {}

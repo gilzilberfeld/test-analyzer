@@ -16,10 +16,7 @@ class ExceptionIdentificationTests {
 	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/exceptions/";
 	private Tests tests;
 
-	@BeforeAll
-	public static void setup() {
-	}
-
+	
 	@Test
 	void one_when_contains_expected_annotation() throws FileNotFoundException {
 		tests = TestClassLocator.loadTestClass("SingleTestWithExpectedJUnit4");

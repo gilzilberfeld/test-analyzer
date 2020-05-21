@@ -16,17 +16,12 @@ class TestIdentificationTests {
 	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/identify/";
 	private Tests tests;
 
-	@BeforeAll
-	public static void setup() {
-	}
 	
 	@Test
 	void zero_on_empty_class() throws Exception {
 		tests = TestClassLocator.loadTestClass("EmptyClass");
 		countShouldBe(0);
 	}
-
-	
 	
 	@Test
 	void zero_on_non_test_class() throws FileNotFoundException {
