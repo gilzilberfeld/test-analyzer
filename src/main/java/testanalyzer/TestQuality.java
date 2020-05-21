@@ -1,6 +1,6 @@
 package testanalyzer;
 
-public class Quality {
+public class TestQuality {
 
 	public int assertCount;
 

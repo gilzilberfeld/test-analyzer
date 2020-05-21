@@ -6,25 +6,25 @@ import java.util.List;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import testanalyzer.Quality;
+import testanalyzer.TestClassQuality;
+import testanalyzer.TestQuality;
 
 public class QualityChecker extends VoidVisitorAdapter<Void> {
 
-	public List<Quality> qualityData = new ArrayList<Quality>();
-	public int numberOfValidTests=0;
-
+	
+	public  TestClassQuality qualityData = new TestClassQuality();
+	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
-		Quality quality = new Quality();
-		qualityData.add(quality);
+		TestQuality testQuality = qualityData.create();
 		
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
 				if (hasExpected(method)) {
-					quality.assertCount = 1;
+					testQuality.assertCount = 1;
 				}
-				quality.assertCount += countAsserts(method);
-				numberOfValidTests++;
+				testQuality.assertCount += countAsserts(method);
+				qualityData.incrementTests(); 
 			}
 		}
 	}

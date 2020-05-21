@@ -15,7 +15,8 @@ import com.github.javaparser.symbolsolver.javaparser.Navigator;
 import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserClassDeclaration;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 
-import testanalyzer.Quality;
+import testanalyzer.TestClassQuality;
+import testanalyzer.TestQuality;
 
 public class TestResolver {
 
@@ -38,13 +39,11 @@ public class TestResolver {
 	}
 
 	public int getNumberOfTests() {
-		QualityChecker visitor = new QualityChecker();
-		cu.accept(visitor, null);
-		return visitor.numberOfValidTests;
+		return getTestQualityData().numberOfValidTests;
 	}
 
 
-	public List<Quality> getTestQualityData() {
+	public TestClassQuality getTestQualityData() {
 		QualityChecker visitor = new QualityChecker();
 		cu.accept(visitor, null);
 		return visitor.qualityData;

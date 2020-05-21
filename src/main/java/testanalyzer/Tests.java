@@ -19,8 +19,8 @@ public class Tests {
 		return resolver.getNumberOfTests();
 	}
 
-	public Quality qualityDataFor(int i) {
-		List<Quality> qualityList = resolver.getTestQualityData();
+	public TestQuality qualityDataFor(int i) {
+		TestClassQuality qualityList = resolver.getTestQualityData();
 		return qualityList.get(i);
 	}
 
