@@ -40,6 +40,11 @@ class AssertIdentificationTests{
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 
+	@Test
+	void two_when_contains_two_asserts() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("SingleTestWithTwoAsserts");
+		assertThat(tests.qualityDataFor(0).assertCount, is(2));
+	}
 	/*
 	@Test
 	void one_when_contains_a_single_assert_with_two_tests() throws FileNotFoundException {
