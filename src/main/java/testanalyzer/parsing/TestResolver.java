@@ -45,11 +45,9 @@ public class TestResolver {
 
 
 	public List<Quality> getTestQualityData() {
-		List<Quality> qualityData = new ArrayList<Quality>();
 		QualityChecker visitor = new QualityChecker();
 		cu.accept(visitor, null);
-		qualityData.add(visitor.result);
-		return qualityData;
+		return visitor.qualityData;
 	}
 
 

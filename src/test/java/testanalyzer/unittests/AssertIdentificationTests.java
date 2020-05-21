@@ -45,7 +45,7 @@ class AssertIdentificationTests{
 		tests = TestsLoader.loadClass("SingleTestWithTwoAsserts");
 		assertThat(tests.qualityDataFor(0).assertCount, is(2));
 	}
-	/*
+
 	@Test
 	void one_when_contains_a_single_assert_with_two_tests() throws FileNotFoundException {
 		tests = TestsLoader.loadClass("TwoTestWithOneAssert");
@@ -53,6 +53,7 @@ class AssertIdentificationTests{
 		assertThat(tests.qualityDataFor(1).assertCount, is(1));
 	}
 
+	/*
 	
 	void one_when_contains_expected_rule() {
 		// check example, could be an explicit assert there

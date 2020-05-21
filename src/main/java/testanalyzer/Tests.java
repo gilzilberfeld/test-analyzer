@@ -21,7 +21,7 @@ public class Tests {
 
 	public Quality qualityDataFor(int i) {
 		List<Quality> qualityList = resolver.getTestQualityData();
-		return qualityList.get(0);
+		return qualityList.get(i);
 	}
 
 	
