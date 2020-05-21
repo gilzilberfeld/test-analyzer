@@ -1,25 +1,46 @@
 package testanalyzer;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-
-import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.symbolsolver.javaparser.Navigator;
-import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParserClassDeclaration;
-import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import testanalyzer.parsing.TestResolver;
 
 public class TestClassLocator {
 
-	public static String Root;
-
+	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/";
+	private static final int DEPTH = 5;
+	
+	
 	public static Tests loadTestClass(String className) throws FileNotFoundException {
-		String filePath = Root+className+".java";
+		String filePath = findFilePath(className);
 		TestResolver resolver = new TestResolver(filePath);
 		return new Tests(resolver);
 	}
 
+	private static String findFilePath(String className) {
+		Path rootPath = Paths.get(ROOT_PATH);
+		
+		String fileName = className + ".java";
+		return getPath(rootPath, fileName);
+	}
+
+	private static String getPath(Path rootPath, String fileName) {
+		String filePath="";
+		try (Stream<Path> stream = Files.find(rootPath, DEPTH,
+				(path, attr) -> path.getFileName().toString().equals(fileName))) {
+			Optional<Path> result = stream.findFirst();
+			if (result.isPresent()) {
+				filePath = result.get().toString();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return filePath;
+	}
 }

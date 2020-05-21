@@ -1,4 +1,4 @@
-package testanalyzer.examples;
+package testanalyzer.examples.identify;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -13,12 +13,11 @@ import testanalyzer.TestClassLocator;
 import testanalyzer.Tests;
 
 class ExceptionIdentificationTests {
-	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/";
+	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/exceptions/";
 	private Tests tests;
 
 	@BeforeAll
 	public static void setup() {
-		TestClassLocator.Root = ROOT_PATH;
 	}
 
 	@Test

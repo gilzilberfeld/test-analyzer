@@ -1,4 +1,4 @@
-package testanalyzer.examples;
+package testanalyzer.examples.exceptions;
 
 import org.junit.Test;
 

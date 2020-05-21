@@ -1,4 +1,4 @@
-package testanalyzer.examples;
+package testanalyzer.examples.ignore;
 
 import org.junit.Ignore;
 import org.junit.Test;
