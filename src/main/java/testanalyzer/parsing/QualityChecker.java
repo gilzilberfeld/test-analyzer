@@ -17,6 +17,7 @@ public class QualityChecker extends VoidVisitorAdapter<Void> {
 	public void visit(MethodDeclaration method, Void arg) {
 		Quality quality = new Quality();
 		qualityData.add(quality);
+		
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
 				if (hasExpected(method)) {

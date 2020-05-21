@@ -53,6 +53,13 @@ class AssertIdentificationTests{
 		assertThat(tests.qualityDataFor(1).assertCount, is(1));
 	}
 
+	
+	@Test
+	void correct_count_on_combo() throws FileNotFoundException {
+		tests = TestsLoader.loadClass("TwoTestWithOneAssertAndMethods");
+		assertThat(tests.qualityDataFor(0).assertCount, is(0));
+		assertThat(tests.qualityDataFor(1).assertCount, is(1));
+	}
 	/*
 	
 	void one_when_contains_expected_rule() {
