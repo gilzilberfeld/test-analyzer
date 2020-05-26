@@ -1,9 +1,11 @@
 package testanalyzer;
 
-import testanalyzer.parsing.exceptions.NoTestsFound;
-import testanalyzer.parsing.TestResolver;
+import java.io.Serializable;
 
-public class Tests {
+import testanalyzer.parsing.TestResolver;
+import testanalyzer.parsing.exceptions.NoTestsFound;
+
+public class Tests implements Serializable{
 
 	private TestResolver resolver;
 
@@ -11,11 +13,11 @@ public class Tests {
 		this.resolver = resolver;
 	}
 
-	public int getCount() {
+	public int getCount() throws Exception {
 		return resolver.getNumberOfTests();
 	}
 
-	public TestQuality qualityDataFor(int i) throws NoTestsFound {
+	public TestQuality qualityDataFor(int i) throws Exception {
 		TestClassQuality qualityList = resolver.getTestQualityData();
 		if (qualityList.isEmpty())
 			throw new NoTestsFound();
@@ -24,6 +26,10 @@ public class Tests {
 
 	public String getClassName() throws Exception {
 		return resolver.getTestClassName();
+	}
+
+	public TestClassQuality getAll() throws Exception {
+		return resolver.getTestQualityData();
 	}
 
 }

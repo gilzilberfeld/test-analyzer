@@ -1,15 +1,20 @@
 package testanalyzer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestClassQuality {
-	List<TestQuality> qualityData = new ArrayList<TestQuality>();
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class TestClassQuality implements Serializable {
+
+	public List<TestQuality> testInfo = new ArrayList<TestQuality>();
 	public int numberOfValidTests;
+	public String testClassName;
 	
 	public TestQuality create() {
 		TestQuality testData = new TestQuality();
-		qualityData.add(testData);
+		testInfo.add(testData);
 		return testData;
 	}
 	
@@ -18,12 +23,12 @@ public class TestClassQuality {
 	}
 
 	public TestQuality get(int i) {
-		return qualityData.get(i);
+		return testInfo.get(i);
 	}
 
+	@JsonIgnore
 	public boolean isEmpty() {
-		return qualityData.isEmpty();
+		return testInfo.isEmpty();
 	}
 
-	
 }

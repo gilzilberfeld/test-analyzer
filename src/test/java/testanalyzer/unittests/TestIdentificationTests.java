@@ -44,7 +44,7 @@ class TestIdentificationTests {
 		countShouldBe(2);
 	}
 
-	private void countShouldBe(int expected) {
+	private void countShouldBe(int expected) throws Exception {
 		assertThat(tests.getCount(), is(expected));
 	}
 

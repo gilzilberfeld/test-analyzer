@@ -8,7 +8,6 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 
 import testanalyzer.TestClassQuality;
-import testanalyzer.parsing.exceptions.NoClassFound;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
 public class TestResolver {
@@ -26,25 +25,25 @@ public class TestResolver {
 		return testChecker.hasTestMethods;
 	}
 
-	public int getNumberOfTests() {
+	public int getNumberOfTests() throws Exception {
 		if (isTestClass())
 			return getTestQualityData().numberOfValidTests;
 		return 0;
 	}
 
 
-	public TestClassQuality getTestQualityData() {
+	public TestClassQuality getTestQualityData() throws Exception {
 		QualityChecker visitor = new QualityChecker();
 		cu.accept(visitor, null);
-		return visitor.testClassInfo;
+		TestClassQuality testClassInfo = visitor.testClassInfo;
+		testClassInfo.testClassName = getTestClassName();
+		return testClassInfo;
 	}
 
 
 	public String getTestClassName() throws Exception {
-		boolean isTestClass = isTestClass();
-
 		Optional<String> primaryTypeName = cu.getPrimaryTypeName();
-		if (primaryTypeName.isPresent() && isTestClass)
+		if (primaryTypeName.isPresent() && isTestClass())
 			return primaryTypeName.get();
 		throw new NoTestsFound();
 	}
