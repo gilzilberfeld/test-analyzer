@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestClassLocator;
+import testanalyzer.model.Tests;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
 class NameTests {

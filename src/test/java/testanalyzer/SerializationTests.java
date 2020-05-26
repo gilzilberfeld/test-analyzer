@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import testanalyzer.helpers.TestClassLocator;
+import testanalyzer.model.Tests;
 
 class SerializationTests {
 

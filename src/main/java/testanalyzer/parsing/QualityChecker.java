@@ -3,8 +3,8 @@ package testanalyzer.parsing;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import testanalyzer.TestClassQuality;
-import testanalyzer.TestQuality;
+import testanalyzer.model.TestClassQuality;
+import testanalyzer.model.TestQuality;
 
 public class QualityChecker extends VoidVisitorAdapter<Void> {
 

@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import testanalyzer.Tests;
-import testanalyzer.parsing.TestClassResolver;
+import testanalyzer.model.Tests;
+import testanalyzer.parsing.TestClassParser;
 
 public class TestClassLocator {
 
@@ -19,7 +19,7 @@ public class TestClassLocator {
 	
 	public static Tests loadTestClass(String className) throws FileNotFoundException {
 		String filePath = findFilePath(className);
-		TestClassResolver resolver = new TestClassResolver(filePath);
+		TestClassParser resolver = new TestClassParser(filePath);
 		return new Tests(resolver);
 	}
 

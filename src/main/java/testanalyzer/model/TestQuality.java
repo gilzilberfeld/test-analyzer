@@ -1,4 +1,4 @@
-package testanalyzer;
+package testanalyzer.model;
 
 import java.io.Serializable;
 

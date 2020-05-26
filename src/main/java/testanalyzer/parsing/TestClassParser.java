@@ -7,14 +7,14 @@ import java.util.Optional;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 
-import testanalyzer.TestClassQuality;
+import testanalyzer.model.TestClassQuality;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
-public class TestClassResolver {
+public class TestClassParser {
 
 	private CompilationUnit cu;
 	
-	public TestClassResolver(String path) throws FileNotFoundException {
+	public TestClassParser(String path) throws FileNotFoundException {
 		this.cu = StaticJavaParser.parse(new File(path));
 	}
 

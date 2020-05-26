@@ -6,9 +6,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestClassLocator;
+import testanalyzer.model.Tests;
 
 class ExceptionIdentificationTests {
-	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/exceptions/";
 	private Tests tests;
 
 	

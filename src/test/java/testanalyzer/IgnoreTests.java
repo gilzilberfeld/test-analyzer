@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestClassLocator;
+import testanalyzer.model.Tests;
 
 public class IgnoreTests {
 
