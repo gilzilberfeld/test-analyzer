@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import testanalyzer.model.Tests;
 import testanalyzer.parsing.TestClassParser;
 
-public class TestClassLocator {
+public class TestLocator {
 
 	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/";
 	private static final int DEPTH = 5;

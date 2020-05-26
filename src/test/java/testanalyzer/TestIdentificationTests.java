@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.helpers.TestClassLocator;
+import testanalyzer.helpers.TestLocator;
 import testanalyzer.model.Tests;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
@@ -16,31 +16,31 @@ class TestIdentificationTests {
 
 	@Test
 	void zero_on_empty_class() throws Exception {
-		tests = TestClassLocator.loadTestClass("EmptyClass");
+		tests = TestLocator.loadTestClass("EmptyClass");
 		countShouldBe(0);
 	}
 
 	@Test
 	void zero_on_non_test_class() throws Exception {
-		tests = TestClassLocator.loadTestClass("NonTestClass");
+		tests = TestLocator.loadTestClass("NonTestClass");
 		countShouldBe(0);
 	}
 
 	@Test
 	void one_on_test_class_with_one_test() throws Exception {
-		tests = TestClassLocator.loadTestClass("SingleTest");
+		tests = TestLocator.loadTestClass("SingleTest");
 		countShouldBe(1);
 	}
 
 	@Test
 	void one_on_test_class_with_one_test_and_one_method() throws Exception {
-		tests = TestClassLocator.loadTestClass("SingleTestOneMethod");
+		tests = TestLocator.loadTestClass("SingleTestOneMethod");
 		countShouldBe(1);
 	}
 
 	@Test
 	void two_on_test_class_with_two_tests_and_three_methods_and_ignored_tests() throws Exception {
-		tests = TestClassLocator.loadTestClass("ComboTest");
+		tests = TestLocator.loadTestClass("ComboTest");
 		countShouldBe(2);
 	}
 
@@ -52,7 +52,7 @@ class TestIdentificationTests {
 	@Test
 	void exception_when_accessing_data_when_no_tests() throws Exception
 	{
-		tests = TestClassLocator.loadTestClass("SingleIgnoredTestWithExpected");
+		tests = TestLocator.loadTestClass("SingleIgnoredTestWithExpected");
 		assertThrows(NoTestsFound.class, ()->tests.qualityDataFor(0));
 	}
 

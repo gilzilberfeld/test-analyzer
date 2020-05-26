@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.helpers.TestClassLocator;
+import testanalyzer.helpers.TestLocator;
 import testanalyzer.model.Tests;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
@@ -15,38 +15,38 @@ class NameTests {
 
 	@Test
 	void not_test_class_when_empty_class() throws Exception {
-		tests = TestClassLocator.loadTestClass("EmptyClass");
+		tests = TestLocator.loadTestClass("EmptyClass");
 		assertThrows(NoTestsFound.class, () -> tests.getClassName());
 
 	}
 
 	@Test
 	void not_test_class_when_not_a_test_class() throws Exception {
-		tests = TestClassLocator.loadTestClass("NonTestClass");
+		tests = TestLocator.loadTestClass("NonTestClass");
 		assertThrows(NoTestsFound.class, () -> tests.getClassName());
 	}
 
 	@Test
 	void not_test_class_when_interface() throws Exception {
-		tests = TestClassLocator.loadTestClass("SomeInterface");
+		tests = TestLocator.loadTestClass("SomeInterface");
 		assertThrows(NoTestsFound.class, () -> tests.getClassName());
 	}
 
 	@Test
 	void class_name_when_test_class() throws Exception {
-		tests = TestClassLocator.loadTestClass("SingleTest");
+		tests = TestLocator.loadTestClass("SingleTest");
 		assertThat(tests.getClassName(), is("SingleTest"));
 	}
 
 	@Test
 	void single_test_name_identified() throws Exception {
-		tests = TestClassLocator.loadTestClass("SingleTest");
+		tests = TestLocator.loadTestClass("SingleTest");
 		assertThat(tests.qualityDataFor(0).testName, is("test1"));
 	}
 
 	@Test
 	void multiple_test_names_identified() throws Exception {
-		tests = TestClassLocator.loadTestClass("ComboTest");
+		tests = TestLocator.loadTestClass("ComboTest");
 		assertThat(tests.qualityDataFor(0).testName, is("test1"));
 		assertThat(tests.qualityDataFor(1).testName, is("test2"));
 	}
