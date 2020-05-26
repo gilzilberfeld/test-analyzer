@@ -1,22 +1,22 @@
-package testanalyzer.parsing;
+package testanalyzer.parsing.rules;
 
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import testanalyzer.model.TestClassQuality;
-import testanalyzer.model.TestQuality;
+import testanalyzer.model.TestClassInfo;
+import testanalyzer.model.TestInfo;
 
-public class QualityChecker extends VoidVisitorAdapter<Void> {
+public class TestRules extends VoidVisitorAdapter<Void> {
 
 	
-	public  TestClassQuality testClassInfo = new TestClassQuality();
+	public  TestClassInfo testClassInfo = new TestClassInfo();
 	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
 		
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
-				TestQuality testInfo = testClassInfo.create();
+				TestInfo testInfo = testClassInfo.create();
 				testInfo.testName = method.getName().toString();
 				if (hasExpected(method)) {
 					testInfo.assertCount = 1;
@@ -29,7 +29,7 @@ public class QualityChecker extends VoidVisitorAdapter<Void> {
 
 	
 	private int countAsserts(MethodDeclaration method) {
-		AssertChecker assertChecker = new AssertChecker();
+		AssertRules assertChecker = new AssertRules();
 		method.accept(assertChecker, null);
 		return assertChecker.count;
 	}
@@ -46,9 +46,9 @@ public class QualityChecker extends VoidVisitorAdapter<Void> {
 	}
 
 	private boolean hasExpected(MethodDeclaration method) {
-		ExpectedJUnit4Checker expectedAnnotationFinder = new ExpectedJUnit4Checker();
+		ExpectedJUnit4Rules expectedAnnotationFinder = new ExpectedJUnit4Rules();
 		method.accept(expectedAnnotationFinder, null);
-		ExpectedRuleJUnit4Checker expectedRuleFinder = new ExpectedRuleJUnit4Checker();
+		ExpectedRuleJUnit4Rules expectedRuleFinder = new ExpectedRuleJUnit4Rules();
 		method.accept(expectedRuleFinder, null);
 		return expectedAnnotationFinder.hasExpectedAnnotation ||
 				expectedRuleFinder.hasExpectedRule;

@@ -1,9 +1,9 @@
-package testanalyzer.parsing;
+package testanalyzer.parsing.rules;
 
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-public class ExpectedJUnit4Checker extends VoidVisitorAdapter<Void> {
+public class ExpectedJUnit4Rules extends VoidVisitorAdapter<Void> {
 
 	public boolean hasExpectedAnnotation;
 

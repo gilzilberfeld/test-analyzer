@@ -7,11 +7,11 @@ import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
-import testanalyzer.model.Tests;
+import testanalyzer.parsing.TestClassAdapter;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
 class NameTests {
-	private Tests tests;
+	private TestClassAdapter tests;
 
 	@Test
 	void not_test_class_when_empty_class() throws Exception {
@@ -41,14 +41,14 @@ class NameTests {
 	@Test
 	void single_test_name_identified() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTest");
-		assertThat(tests.qualityDataFor(0).testName, is("test1"));
+		assertThat(tests.getInfoForTest(0).testName, is("test1"));
 	}
 
 	@Test
 	void multiple_test_names_identified() throws Exception {
 		tests = TestLocator.loadTestClass("ComboTest");
-		assertThat(tests.qualityDataFor(0).testName, is("test1"));
-		assertThat(tests.qualityDataFor(1).testName, is("test2"));
+		assertThat(tests.getInfoForTest(0).testName, is("test1"));
+		assertThat(tests.getInfoForTest(1).testName, is("test2"));
 	}
 
 }

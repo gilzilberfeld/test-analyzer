@@ -1,9 +1,9 @@
-package testanalyzer.parsing;
+package testanalyzer.parsing.rules;
 
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-public class TestClassChecker extends VoidVisitorAdapter<Void> {
+public class TestClassRules extends VoidVisitorAdapter<Void> {
 
 	public boolean hasTestMethods=false;
 

@@ -6,11 +6,11 @@ import static org.hamcrest.Matchers.is;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
-import testanalyzer.model.Tests;
+import testanalyzer.parsing.TestClassAdapter;
 
 public class IgnoreTests {
 
-	private Tests tests;
+	private TestClassAdapter tests;
 
 
 	@Test

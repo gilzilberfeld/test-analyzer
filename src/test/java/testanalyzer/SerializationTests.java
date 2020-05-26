@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import testanalyzer.helpers.TestLocator;
-import testanalyzer.model.Tests;
+import testanalyzer.parsing.TestClassAdapter;
 
 class SerializationTests {
 
@@ -18,7 +18,7 @@ class SerializationTests {
 
 	@Test
 	void export_for_class_contains_test_info() throws Exception {
-		Tests tests = TestLocator.loadTestClass("ComboTest");
+		TestClassAdapter tests = TestLocator.loadTestClass("ComboTest");
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(tests.getAll());

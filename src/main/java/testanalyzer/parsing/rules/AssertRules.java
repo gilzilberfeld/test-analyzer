@@ -1,9 +1,9 @@
-package testanalyzer.parsing;
+package testanalyzer.parsing.rules;
 
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-public class AssertChecker extends VoidVisitorAdapter<Void> {
+public class AssertRules extends VoidVisitorAdapter<Void> {
 
 	public int count = 0 ;
 	

@@ -7,12 +7,12 @@ import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
-import testanalyzer.model.Tests;
+import testanalyzer.parsing.TestClassAdapter;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
 class TestIdentificationTests {
 
-	private Tests tests;
+	private TestClassAdapter tests;
 
 	@Test
 	void zero_on_empty_class() throws Exception {
@@ -53,7 +53,7 @@ class TestIdentificationTests {
 	void exception_when_accessing_data_when_no_tests() throws Exception
 	{
 		tests = TestLocator.loadTestClass("SingleIgnoredTestWithExpected");
-		assertThrows(NoTestsFound.class, ()->tests.qualityDataFor(0));
+		assertThrows(NoTestsFound.class, ()->tests.getInfoForTest(0));
 	}
 
 

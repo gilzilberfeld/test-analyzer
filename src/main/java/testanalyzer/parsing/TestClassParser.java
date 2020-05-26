@@ -7,8 +7,10 @@ import java.util.Optional;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 
-import testanalyzer.model.TestClassQuality;
+import testanalyzer.model.TestClassInfo;
 import testanalyzer.parsing.exceptions.NoTestsFound;
+import testanalyzer.parsing.rules.TestRules;
+import testanalyzer.parsing.rules.TestClassRules;
 
 public class TestClassParser {
 
@@ -20,7 +22,7 @@ public class TestClassParser {
 
 	
 	public boolean isTestClass() {
-        TestClassChecker testChecker = new TestClassChecker();
+        TestClassRules testChecker = new TestClassRules();
         cu.accept(testChecker, null);
 		return testChecker.hasTestMethods;
 	}
@@ -32,10 +34,10 @@ public class TestClassParser {
 	}
 
 
-	public TestClassQuality getTestQualityData() throws Exception {
-		QualityChecker visitor = new QualityChecker();
+	public TestClassInfo getTestQualityData() throws Exception {
+		TestRules visitor = new TestRules();
 		cu.accept(visitor, null);
-		TestClassQuality testClassInfo = visitor.testClassInfo;
+		TestClassInfo testClassInfo = visitor.testClassInfo;
 		testClassInfo.testClassName = getTestClassName();
 		return testClassInfo;
 	}

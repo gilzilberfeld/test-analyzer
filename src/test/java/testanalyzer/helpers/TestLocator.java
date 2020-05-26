@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import testanalyzer.model.Tests;
+import testanalyzer.parsing.TestClassAdapter;
 import testanalyzer.parsing.TestClassParser;
 
 public class TestLocator {
@@ -17,10 +17,10 @@ public class TestLocator {
 	private static final int DEPTH = 5;
 	
 	
-	public static Tests loadTestClass(String className) throws FileNotFoundException {
+	public static TestClassAdapter loadTestClass(String className) throws FileNotFoundException {
 		String filePath = findFilePath(className);
 		TestClassParser resolver = new TestClassParser(filePath);
-		return new Tests(resolver);
+		return new TestClassAdapter(resolver);
 	}
 
 	private static String findFilePath(String className) {

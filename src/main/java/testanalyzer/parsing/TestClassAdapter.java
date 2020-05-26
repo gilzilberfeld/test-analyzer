@@ -1,15 +1,16 @@
-package testanalyzer.model;
+package testanalyzer.parsing;
 
 import java.io.Serializable;
 
-import testanalyzer.parsing.TestClassParser;
+import testanalyzer.model.TestClassInfo;
+import testanalyzer.model.TestInfo;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
-public class Tests implements Serializable{
+public class TestClassAdapter {
 
 	private TestClassParser parser;
 
-	public Tests(TestClassParser parser) {
+	public TestClassAdapter(TestClassParser parser) {
 		this.parser = parser;
 	}
 
@@ -17,8 +18,8 @@ public class Tests implements Serializable{
 		return parser.getNumberOfTests();
 	}
 
-	public TestQuality qualityDataFor(int i) throws Exception {
-		TestClassQuality qualityList = parser.getTestQualityData();
+	public TestInfo getInfoForTest(int i) throws Exception {
+		TestClassInfo qualityList = parser.getTestQualityData();
 		if (qualityList.isEmpty())
 			throw new NoTestsFound();
 		return qualityList.get(i);
@@ -28,7 +29,7 @@ public class Tests implements Serializable{
 		return parser.getTestClassName();
 	}
 
-	public TestClassQuality getAll() throws Exception {
+	public TestClassInfo getAll() throws Exception {
 		return parser.getTestQualityData();
 	}
 

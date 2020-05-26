@@ -6,29 +6,29 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class TestClassQuality implements Serializable {
+public class TestClassInfo implements Serializable {
 
-	public List<TestQuality> testInfo = new ArrayList<TestQuality>();
+	public List<TestInfo> testsInfo = new ArrayList<TestInfo>();
 	public int numberOfValidTests;
 	public String testClassName;
 	
-	public TestQuality create() {
-		TestQuality testData = new TestQuality();
-		testInfo.add(testData);
-		return testData;
+	public TestInfo create() {
+		TestInfo testInfo = new TestInfo();
+		testsInfo.add(testInfo);
+		return testInfo;
 	}
 	
 	public void incrementTests() {
 		numberOfValidTests++;
 	}
 
-	public TestQuality get(int i) {
-		return testInfo.get(i);
+	public TestInfo get(int i) {
+		return testsInfo.get(i);
 	}
 
 	@JsonIgnore
 	public boolean isEmpty() {
-		return testInfo.isEmpty();
+		return testsInfo.isEmpty();
 	}
 
 }
