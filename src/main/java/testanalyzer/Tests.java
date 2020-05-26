@@ -2,14 +2,14 @@ package testanalyzer;
 
 import java.io.Serializable;
 
-import testanalyzer.parsing.TestResolver;
+import testanalyzer.parsing.TestClassResolver;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
 public class Tests implements Serializable{
 
-	private TestResolver resolver;
+	private TestClassResolver resolver;
 
-	public Tests(TestResolver resolver) {
+	public Tests(TestClassResolver resolver) {
 		this.resolver = resolver;
 	}
 

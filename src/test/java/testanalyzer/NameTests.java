@@ -1,4 +1,4 @@
-package testanalyzer.unittests;
+package testanalyzer;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -6,8 +6,7 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.TestClassLocator;
-import testanalyzer.Tests;
+import testanalyzer.helpers.TestClassLocator;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
 class NameTests {

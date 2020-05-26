@@ -1,15 +1,11 @@
-package testanalyzer.unittests;
+package testanalyzer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import java.io.FileNotFoundException;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.TestClassLocator;
-import testanalyzer.Tests;
+import testanalyzer.helpers.TestClassLocator;
 
 public class IgnoreTests {
 

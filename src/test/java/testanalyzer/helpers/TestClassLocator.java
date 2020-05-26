@@ -1,4 +1,4 @@
-package testanalyzer;
+package testanalyzer.helpers;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +8,8 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import testanalyzer.parsing.TestResolver;
+import testanalyzer.Tests;
+import testanalyzer.parsing.TestClassResolver;
 
 public class TestClassLocator {
 
@@ -18,7 +19,7 @@ public class TestClassLocator {
 	
 	public static Tests loadTestClass(String className) throws FileNotFoundException {
 		String filePath = findFilePath(className);
-		TestResolver resolver = new TestResolver(filePath);
+		TestClassResolver resolver = new TestClassResolver(filePath);
 		return new Tests(resolver);
 	}
 

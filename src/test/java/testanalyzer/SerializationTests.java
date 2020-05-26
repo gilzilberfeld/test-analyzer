@@ -1,14 +1,13 @@
-package testanalyzer.unittests;
+package testanalyzer;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import testanalyzer.TestClassLocator;
-import testanalyzer.Tests;
-
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
+import testanalyzer.helpers.TestClassLocator;
 
 class SerializationTests {
 

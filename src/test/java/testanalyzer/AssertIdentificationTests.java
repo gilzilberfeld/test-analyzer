@@ -1,16 +1,11 @@
-package testanalyzer.unittests;
+package testanalyzer;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.io.FileNotFoundException;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.Tests;
-import testanalyzer.TestClassLocator;
+import testanalyzer.helpers.TestClassLocator;
 
 class AssertIdentificationTests{
 

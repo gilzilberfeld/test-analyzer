@@ -10,11 +10,11 @@ import com.github.javaparser.ast.CompilationUnit;
 import testanalyzer.TestClassQuality;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
-public class TestResolver {
+public class TestClassResolver {
 
 	private CompilationUnit cu;
 	
-	public TestResolver(String path) throws FileNotFoundException {
+	public TestClassResolver(String path) throws FileNotFoundException {
 		this.cu = StaticJavaParser.parse(new File(path));
 	}
 
