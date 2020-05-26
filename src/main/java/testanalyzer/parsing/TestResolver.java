@@ -41,7 +41,7 @@ public class TestResolver {
 	public TestClassQuality getTestQualityData() {
 		QualityChecker visitor = new QualityChecker();
 		cu.accept(visitor, null);
-		return visitor.qualityData;
+		return visitor.testClassInfo;
 	}
 
 

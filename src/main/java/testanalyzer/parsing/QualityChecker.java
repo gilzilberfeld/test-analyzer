@@ -9,19 +9,20 @@ import testanalyzer.TestQuality;
 public class QualityChecker extends VoidVisitorAdapter<Void> {
 
 	
-	public  TestClassQuality qualityData = new TestClassQuality();
+	public  TestClassQuality testClassInfo = new TestClassQuality();
 	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
-		TestQuality testQuality = qualityData.create();
+		TestQuality testInfo = testClassInfo.create();
 		
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
+				testInfo.testName = method.getName().toString();
 				if (hasExpected(method)) {
-					testQuality.assertCount = 1;
+					testInfo.assertCount = 1;
 				}
-				testQuality.assertCount += countAsserts(method);
-				qualityData.incrementTests(); 
+				testInfo.assertCount += countAsserts(method);
+				testClassInfo.incrementTests(); 
 			}
 		}
 	}

@@ -1,15 +1,14 @@
 package testanalyzer.unittests;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 import java.io.FileNotFoundException;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.Tests;
 import testanalyzer.TestClassLocator;
+import testanalyzer.Tests;
 
 class TestIdentificationTests {
 
@@ -52,10 +51,12 @@ class TestIdentificationTests {
 	private void countShouldBe(int expected) {
 		assertThat(tests.getCount(), is(expected));
 	}
-	/*
-	
-Spring identification: Can do slices, how are "regular" API tests written in bank?
-	
-	*/
+
+	@Test
+	void test_name_identified() throws FileNotFoundException {
+		tests = TestClassLocator.loadTestClass("SingleTest");
+		assertThat(tests.qualityDataFor(0).testName, is("test1"));
+	}
+
 
 }
