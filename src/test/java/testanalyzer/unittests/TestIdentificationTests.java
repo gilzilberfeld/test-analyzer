@@ -6,13 +6,12 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import testanalyzer.NoTestFound;
 import testanalyzer.TestClassLocator;
 import testanalyzer.Tests;
+import testanalyzer.parsing.exceptions.NoTestsFound;
 
 class TestIdentificationTests {
 
-	private static final String ROOT_PATH = "src/main/java/testanalyzer/examples/identify/";
 	private Tests tests;
 
 	@Test
@@ -49,24 +48,12 @@ class TestIdentificationTests {
 		assertThat(tests.getCount(), is(expected));
 	}
 
-	@Test
-	void test_name_identified() throws Exception {
-		tests = TestClassLocator.loadTestClass("SingleTest");
-		assertThat(tests.qualityDataFor(0).testName, is("test1"));
-	}
-
-	@Test
-	void test_names_identified() throws Exception {
-		tests = TestClassLocator.loadTestClass("ComboTest");
-		assertThat(tests.qualityDataFor(0).testName, is("test1"));
-		assertThat(tests.qualityDataFor(1).testName, is("test2"));
-	}
-	
+		
 	@Test
 	void exception_when_accessing_data_when_no_tests() throws Exception
 	{
 		tests = TestClassLocator.loadTestClass("SingleIgnoredTestWithExpected");
-		assertThrows(NoTestFound.class, ()->tests.qualityDataFor(0));
+		assertThrows(NoTestsFound.class, ()->tests.qualityDataFor(0));
 	}
 
 

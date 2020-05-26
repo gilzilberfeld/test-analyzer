@@ -1,16 +1,9 @@
-Done:
-  Identify valid tests in a test class.
-  Identify exception tests (JUnit 4,5).
-  Count asserts in each test (regular, Spring MockMvc)
-  Identify ignored tests (JUnit 4,5).
-
 Idenfication:
   Unit or API test
     Spring slices
     BaseDerived test classes
     RestTemplate.exchange
     WebClient
-  Test name
   API Test
     Identify method (POST, GET, etc.)
       MockMvc
@@ -29,3 +22,12 @@ Reporting
     # of API tests with one status and one field assert
     # of API/Unit with null assertions
     Derivative scores
+
+    
+Done:
+  Identify valid tests in a test class.
+  Identify exception tests (JUnit 4,5).
+  Count asserts in each test (regular, Spring MockMvc)
+  Identify ignored tests (JUnit 4,5).
+  Test name
+    

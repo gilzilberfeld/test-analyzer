@@ -1,29 +1,29 @@
 package testanalyzer;
 
-import java.util.List;
-
+import testanalyzer.parsing.exceptions.NoTestsFound;
 import testanalyzer.parsing.TestResolver;
 
 public class Tests {
 
 	private TestResolver resolver;
-	
-	
+
 	public Tests(TestResolver resolver) {
 		this.resolver = resolver;
 	}
 
 	public int getCount() {
-		if (resolver.isNotTestClass())
-			return 0;
 		return resolver.getNumberOfTests();
 	}
 
-	public TestQuality qualityDataFor(int i) throws NoTestFound {
+	public TestQuality qualityDataFor(int i) throws NoTestsFound {
 		TestClassQuality qualityList = resolver.getTestQualityData();
 		if (qualityList.isEmpty())
-			throw new NoTestFound();
+			throw new NoTestsFound();
 		return qualityList.get(i);
+	}
+
+	public String getClassName() throws Exception {
+		return resolver.getTestClassName();
 	}
 
 }
