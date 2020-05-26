@@ -13,10 +13,10 @@ public class QualityChecker extends VoidVisitorAdapter<Void> {
 	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
-		TestQuality testInfo = testClassInfo.create();
 		
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
+				TestQuality testInfo = testClassInfo.create();
 				testInfo.testName = method.getName().toString();
 				if (hasExpected(method)) {
 					testInfo.assertCount = 1;

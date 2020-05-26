@@ -18,19 +18,14 @@ class ExceptionIdentificationTests {
 
 	
 	@Test
-	void one_when_contains_expected_annotation() throws FileNotFoundException {
+	void one_when_contains_expected_annotation() throws Exception {
 		tests = TestClassLocator.loadTestClass("SingleTestWithExpectedJUnit4");
 		assertThat(tests.qualityDataFor(0).assertCount, is(1));
 	}
 
-	@Test
-	void zero_when_ignored_and_contains_expected_annotation() throws FileNotFoundException {
-		tests = TestClassLocator.loadTestClass("SingleIgnoredTestWithExpected");
-		assertThat(tests.qualityDataFor(0).assertCount, is(0));
-	}
 	
 	@Test
-	void one_when_contains_expected_rule_junit4() throws FileNotFoundException {
+	void one_when_contains_expected_rule_junit4() throws Exception {
 		tests = TestClassLocator.loadTestClass("ExceptionRuleJunit4Test");
 		assertThat(tests.qualityDataFor(0).assertCount, is(1));
 	}

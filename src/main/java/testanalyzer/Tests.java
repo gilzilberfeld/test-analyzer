@@ -19,8 +19,10 @@ public class Tests {
 		return resolver.getNumberOfTests();
 	}
 
-	public TestQuality qualityDataFor(int i) {
+	public TestQuality qualityDataFor(int i) throws NoTestFound {
 		TestClassQuality qualityList = resolver.getTestQualityData();
+		if (qualityList.isEmpty())
+			throw new NoTestFound();
 		return qualityList.get(i);
 	}
 

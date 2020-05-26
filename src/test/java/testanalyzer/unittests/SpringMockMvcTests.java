@@ -15,25 +15,25 @@ class SpringMockMvcTests {
 	private Tests tests;
 	
 	@Test
-	void zero_when_perform_and_no_expects() throws FileNotFoundException {
+	void zero_when_perform_and_no_expects() throws Exception {
 		tests = TestClassLocator.loadTestClass("SpringTestWithoutExpect");
 		assertThat(tests.qualityDataFor(0).assertCount, is(0));
 	}
 	
 	@Test
-	void one_when_perform_with_single_expect() throws FileNotFoundException {
+	void one_when_perform_with_single_expect() throws Exception {
 		tests = TestClassLocator.loadTestClass("SpringTestWithSingleExpect");
 		assertThat(tests.qualityDataFor(0).assertCount, is(1));
 	}
 
 	@Test
-	void one_when_perform_with_two_expect() throws FileNotFoundException {
+	void one_when_perform_with_two_expect() throws Exception {
 		tests = TestClassLocator.loadTestClass("SpringTestWithTwoExpects");
 		assertThat(tests.qualityDataFor(0).assertCount, is(2));
 	}
 	
 	@Test
-	void multiple_tests_with_multiple_performs() throws FileNotFoundException {
+	void multiple_tests_with_multiple_performs() throws Exception {
 		tests = TestClassLocator.loadTestClass("MultipleTestsWithMultipleExpects");
 		assertThat(tests.qualityDataFor(0).assertCount, is(1));	
 		assertThat(tests.qualityDataFor(1).assertCount, is(0));	

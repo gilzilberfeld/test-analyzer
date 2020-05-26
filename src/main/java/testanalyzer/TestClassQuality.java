@@ -21,5 +21,9 @@ public class TestClassQuality {
 		return qualityData.get(i);
 	}
 
+	public boolean isEmpty() {
+		return qualityData.isEmpty();
+	}
+
 	
 }
