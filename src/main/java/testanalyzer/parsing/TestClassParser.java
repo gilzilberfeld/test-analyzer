@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 
 import testanalyzer.model.TestClassInfo;
-import testanalyzer.parsing.exceptions.NoTestsFound;
-import testanalyzer.parsing.rules.TestRules;
 import testanalyzer.parsing.rules.TestClassRules;
+import testanalyzer.parsing.rules.TestRules;
 
 public class TestClassParser {
 

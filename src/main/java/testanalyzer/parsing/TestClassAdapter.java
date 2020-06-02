@@ -1,10 +1,7 @@
 package testanalyzer.parsing;
 
-import java.io.Serializable;
-
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
-import testanalyzer.parsing.exceptions.NoTestsFound;
 
 public class TestClassAdapter {
 
@@ -21,8 +18,12 @@ public class TestClassAdapter {
 	public TestInfo getInfoForTest(int i) throws Exception {
 		TestClassInfo qualityList = parser.getTestQualityData();
 		if (qualityList.isEmpty())
-			return new TestInfo();
+			return emptyTestInfo();
 		return qualityList.get(i);
+	}
+
+	private TestInfo emptyTestInfo() {
+		return new TestInfo();
 	}
 
 	public String getClassName() throws Exception {

@@ -2,14 +2,12 @@ package testanalyzer;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.parsing.TestClassAdapter;
-import testanalyzer.parsing.exceptions.NoTestsFound;
 
 class NameTests {
 	private TestClassAdapter tests;

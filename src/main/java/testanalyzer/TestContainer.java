@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import testanalyzer.model.TestClassInfo;
 import testanalyzer.parsing.TestClassAdapter;
 import testanalyzer.parsing.TestClassParser;
 
@@ -53,8 +54,13 @@ public class TestContainer implements Serializable{
 		this.path = path;
 	}
 
-	private void add(TestClassAdapter tests) {
-		testClasses.add(tests);
+	private void add(TestClassAdapter testClass) throws Exception {
+		if (thereAreTestsIn(testClass))
+			testClasses.add(testClass);
+	}
+
+	private boolean thereAreTestsIn(TestClassAdapter tests) throws Exception {
+		return tests.getClassName() != TestClassInfo.NoName;
 	}
 	public int size() {
 		return testClasses.size();

@@ -58,6 +58,7 @@ class SerializationTests {
 		assertThat(json, not(containsString("EmptyClass")));
 		assertThat(json, not(containsString("NonTestClass")));
 		assertThat(json, not(containsString("SomeInterface")));
+		assertThat(json, not(containsString("\"className\":\"\"")));
 		assertThat(json, containsString(TEST_COUNT));
 		
 	}
