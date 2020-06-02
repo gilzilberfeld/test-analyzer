@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 
@@ -42,12 +43,11 @@ public class TestClassParser {
 		return testClassInfo;
 	}
 
-
-	public String getTestClassName() throws Exception {
+		public String getTestClassName() throws Exception {
 		Optional<String> primaryTypeName = cu.getPrimaryTypeName();
 		if (primaryTypeName.isPresent() && isTestClass())
 			return primaryTypeName.get();
-		throw new NoTestsFound();
+		return TestClassInfo.NoName;
 	}
 
 

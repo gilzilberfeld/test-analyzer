@@ -2,6 +2,7 @@ package testanalyzer;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
@@ -34,14 +35,14 @@ class SerializationTests {
 		int count;
 		TestContainer testContainer = TestContainer.LoadFrom(TESTS_PATH);
 		String json = testContainer.toJson();
-		
+
 		assertThat(json, containsString(TESTS_PATH));
-		
-		count = ( json.split("test1", -1).length ) - 1;	
+
+		count = (json.split("test1", -1).length) - 1;
 		assertThat(count, is(4));
-		count = ( json.split("test2", -1).length ) - 1;
+		count = (json.split("test2", -1).length) - 1;
 		assertThat(count, is(2));
-		
+
 		assertThat(json, containsString("SingleTestWithAssert"));
 		assertThat(json, containsString("SingleTestWithTwoAsserts"));
 		assertThat(json, containsString("TwoTestWithOneAssert"));
@@ -49,4 +50,15 @@ class SerializationTests {
 
 	}
 
+	@Test
+	void export_with_tests_not_found() throws Exception {
+		TestContainer testContainer = TestContainer.LoadFrom("src/main/java/testanalyzer/examples/identify");
+		String json = testContainer.toJson();
+		
+		assertThat(json, not(containsString("EmptyClass")));
+		assertThat(json, not(containsString("NonTestClass")));
+		assertThat(json, not(containsString("SomeInterface")));
+		assertThat(json, containsString(TEST_COUNT));
+		
+	}
 }

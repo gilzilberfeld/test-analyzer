@@ -10,8 +10,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>testparser.examples</groupId>
-	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>test-analyzer</artifactId>
+	<version>0.1</version>
 	<name>demo</name>
 	<description>Demo project for Parsing Tests</description>
 

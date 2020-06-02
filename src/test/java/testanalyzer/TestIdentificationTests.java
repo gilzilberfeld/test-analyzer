@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
+import testanalyzer.model.TestInfo;
 import testanalyzer.parsing.TestClassAdapter;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
@@ -48,13 +49,12 @@ class TestIdentificationTests {
 		assertThat(tests.getCount(), is(expected));
 	}
 
-		
 	@Test
-	void exception_when_accessing_data_when_no_tests() throws Exception
-	{
+	void empty_when_accessing_data_when_no_tests() throws Exception {
 		tests = TestLocator.loadTestClass("SingleIgnoredTestWithExpected");
-		assertThrows(NoTestsFound.class, ()->tests.getInfoForTest(0));
+		TestInfo testInfo = tests.getInfoForTest(0);
+		assertThat(testInfo.assertCount, is(0));
+		assertThat(testInfo.assertCount, is(0));
 	}
-
 
 }

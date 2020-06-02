@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
+import testanalyzer.model.TestClassInfo;
 import testanalyzer.parsing.TestClassAdapter;
 import testanalyzer.parsing.exceptions.NoTestsFound;
 
@@ -16,20 +17,20 @@ class NameTests {
 	@Test
 	void not_test_class_when_empty_class() throws Exception {
 		tests = TestLocator.loadTestClass("EmptyClass");
-		assertThrows(NoTestsFound.class, () -> tests.getClassName());
+		assertThat(tests.getClassName(), is(TestClassInfo.NoName));
 
 	}
 
 	@Test
 	void not_test_class_when_not_a_test_class() throws Exception {
 		tests = TestLocator.loadTestClass("NonTestClass");
-		assertThrows(NoTestsFound.class, () -> tests.getClassName());
+		assertThat(tests.getClassName(), is(TestClassInfo.NoName));
 	}
 
 	@Test
-	void not_test_class_when_interface() throws Exception {
+	void no_test_class_when_interface() throws Exception {
 		tests = TestLocator.loadTestClass("SomeInterface");
-		assertThrows(NoTestsFound.class, () -> tests.getClassName());
+		assertThat(tests.getClassName(), is(TestClassInfo.NoName));
 	}
 
 	@Test

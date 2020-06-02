@@ -21,7 +21,7 @@ public class TestClassAdapter {
 	public TestInfo getInfoForTest(int i) throws Exception {
 		TestClassInfo qualityList = parser.getTestQualityData();
 		if (qualityList.isEmpty())
-			throw new NoTestsFound();
+			return new TestInfo();
 		return qualityList.get(i);
 	}
 
