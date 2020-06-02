@@ -62,7 +62,8 @@ public class TestContainer implements Serializable{
 	private boolean thereAreTestsIn(TestClassAdapter tests) throws Exception {
 		return tests.getClassName() != TestClassInfo.NoName;
 	}
-	public int size() {
+	
+	public int getTestClassCount() {
 		return testClasses.size();
 	}
 
