@@ -1,5 +1,7 @@
 package testanalyzer.parsing;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
 
@@ -26,6 +28,7 @@ public class TestClassAdapter {
 		return new TestInfo();
 	}
 
+	@JsonIgnore
 	public String getClassName() throws Exception {
 		return parser.getTestClassName();
 	}
