@@ -17,7 +17,7 @@ import testanalyzer.parsing.TestClassParser;
 public class TestContainer implements Serializable{
 
 	public List<TestClassAdapter> testClasses = new ArrayList<>();
-	public String path;
+	public String path = "";
 	
 
 	public static TestContainer LoadFrom(String path) throws Exception {
@@ -60,7 +60,7 @@ public class TestContainer implements Serializable{
 	}
 
 	private boolean thereAreTestsIn(TestClassAdapter tests) throws Exception {
-		return tests.getClassName() != TestClassInfo.NoName;
+		return !(tests.getClassName().equals(TestClassInfo.NoName));
 	}
 	
 	public int getTestClassCount() {

@@ -23,12 +23,12 @@ public class TestAnalyzerApp {
 	}
 
 	private static void writeJson(String pathToFolder, String outputFileName) {
-		try {
+		try (FileWriter outputFile = new FileWriter(outputFileName)){
 			TestContainer testContainer = TestContainer.LoadFrom(pathToFolder);
 			String json = testContainer.toJson();
-			FileWriter outputFile = new FileWriter(outputFileName);
+			
 			outputFile.write(json);
-			outputFile.close();
+			
 		} catch (Exception e) {
 			System.out.println("Test Analyzer error:");
 			e.printStackTrace();
