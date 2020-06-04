@@ -12,8 +12,8 @@
 	<groupId>testparser.examples</groupId>
 	<artifactId>test-analyzer</artifactId>
 	<version>0.1</version>
-	<name>demo</name>
-	<description>Demo project for Parsing Tests</description>
+	<name>test-analyzer</name>
+	<description>Test Quality Analyzer</description>
 
 	<properties>
 		<java.version>11</java.version>
