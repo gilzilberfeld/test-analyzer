@@ -36,7 +36,7 @@ public class TestClassParser {
 	public TestClassInfo getTestQualityData() throws Exception {
 		TestRules visitor = new TestRules();
 		cu.accept(visitor, null);
-		TestClassInfo testClassInfo = visitor.testClassInfo;
+		TestClassInfo testClassInfo = visitor.getTestClassInfo();
 		testClassInfo.testClassName = getTestClassName();
 		return testClassInfo;
 	}
