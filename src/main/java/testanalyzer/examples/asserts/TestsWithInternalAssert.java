@@ -21,4 +21,26 @@ class TestsWithInternalAssert {
 		internalCall();
 	}
 
+	@Test
+	public void test_3() {
+		internalCall2();
+	}
+	
+	public void internalCall2() {
+		assertTrue(true);
+		assertTrue(true);
+	}
+	
+	@Test
+	public void test_4() {
+		assertEquals(6,6);
+		internalCall2();
+	}
+	
+	@Test
+	public void test_5() {
+		internalCall();
+		internalCall2();
+	}
+	
 }
