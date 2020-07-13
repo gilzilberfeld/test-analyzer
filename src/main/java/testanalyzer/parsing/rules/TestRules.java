@@ -5,9 +5,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
-import testanalyzer.parsing.AssertInfoHelper;
-import testanalyzer.parsing.AssertingMethods;
-import testanalyzer.parsing.CalledMethods;
+import testanalyzer.parsing.asserts.AssertInfoHelper;
 
 public class TestRules extends VoidVisitorAdapter<Void> {
 

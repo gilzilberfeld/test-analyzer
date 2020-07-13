@@ -1,4 +1,4 @@
-package testanalyzer.parsing;
+package testanalyzer.parsing.asserts;
 
 import java.util.HashMap;
 import java.util.Map;

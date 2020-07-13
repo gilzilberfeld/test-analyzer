@@ -1,4 +1,4 @@
-package testanalyzer.parsing;
+package testanalyzer.parsing.asserts;
 
 import java.util.ArrayList;
 import java.util.List;
