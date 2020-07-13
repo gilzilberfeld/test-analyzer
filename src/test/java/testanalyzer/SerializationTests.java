@@ -43,6 +43,9 @@ class SerializationTests {
 		count = (json.split("test2", -1).length) - 1;
 		assertThat(count, is(2));
 
+		count = (json.split("test_1", -1).length) - 1;
+		assertThat(count, is(2));
+		
 		assertThat(json, containsString("SingleTestWithAssert"));
 		assertThat(json, containsString("SingleTestWithTwoAsserts"));
 		assertThat(json, containsString("TwoTestWithOneAssert"));
