@@ -1,24 +1,23 @@
 package testanalyzer.parsing.rules;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
+import testanalyzer.parsing.AssertingMethods;
+import testanalyzer.parsing.CalledMethods;
 
 public class TestRules extends VoidVisitorAdapter<Void> {
 
 	
 	public  TestClassInfo testClassInfo = new TestClassInfo();
-	List<InternalAssertingMethod> assertingMethods = new ArrayList<InternalAssertingMethod>();
-	List<String> calledMethods = new ArrayList<String>();
+	AssertingMethods assertingMethods = new AssertingMethods();
+	CalledMethods calledMethods = new CalledMethods();
+	int count = 0;
 	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
-		
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
 				addTestInfo(method);
@@ -26,18 +25,16 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 			}
 		}
 		else 
-			addToAssertableMethodList(method);
+			addToAssertingMethodList(method);
 	}
 	
 	private void collectCalledMethods(MethodDeclaration method) {
-		// TODO Auto-generated method stub
-		
+		InternalMethodCollector collector = new InternalMethodCollector();
+		method.accept(collector, calledMethods.listToFillFor(method.getNameAsString()));
 	}
 
-	private void addToAssertableMethodList(MethodDeclaration method) {
-		InternalAssertingMethod iam = new InternalAssertingMethod(method);
-		iam.assertCount = getNumberOfAsserts(method);
-		assertingMethods.add(iam);
+	private void addToAssertingMethodList(MethodDeclaration method) {
+		assertingMethods.add(method.getNameAsString(), getNumberOfAsserts(method));
 	}
 
 	private int getNumberOfAsserts(MethodDeclaration method) {
@@ -52,29 +49,30 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 	}
 
 	private void updateTestInfos() {
-		// TODO Auto-generated method stub
-		
+		for (TestInfo ti : testClassInfo.testsInfo) {
+			String testName = ti.testName;
+			for (String calledMethod : calledMethods.listFor(testName)) {
+				ti.assertCount += assertingMethods.getAssertCountFor(calledMethod); 
+			}
+		}
 	}
 
-	int count = 0;
-	private int addCalledAssertsCount(MethodDeclaration method) {
-		List<InternalAssertingMethod> calledMethods = getListOfCalledMethods(method);
-		calledMethods.forEach( iam -> {
-			count += iam.getNumberOfAsserts();
-		});
+	private int getCalledAssertsCount(MethodDeclaration method) {
+//		List<AssertMethodInfo> calledMethods = getListOfCalledMethods(method);
+//		calledMethods.forEach( iam -> {
+//			count += iam.getNumberOfAsserts();
+//		});
 		return count;
 	}
 	
 	
-	private List<InternalAssertingMethod> getListOfCalledMethods(MethodDeclaration method) {
-		return assertingMethods;
-	}
+//	private List<AssertMethodInfo> getListOfCalledMethods(MethodDeclaration method) {
+//		return assertingMethods;
+//	}
 	
 	private int countAsserts(MethodDeclaration method) {
-		AssertRules assertChecker = new AssertRules();
-		method.accept(assertChecker, null);
-		int count = assertChecker.count;
-		count += addCalledAssertsCount(method);
+		int count = getNumberOfAsserts(method);
+//		count += getCalledAssertsCount(method);
 		return count;
 	}
 

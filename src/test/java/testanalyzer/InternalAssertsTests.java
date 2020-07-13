@@ -14,9 +14,17 @@ class InternalAssertsTests {
 	@Test
 	void testAfterInternalMethod_returns1() throws Exception {
 		TestClassAdapter tests = TestLocator.loadTestClass("TestsWithInternalAssert");
-		assertThat(tests.getInfoForTest(0).assertCount, is(1));
+		assertThat(tests.getInfoForTest(1).testName, is("test_2"));
+		assertThat(tests.getInfoForTest(1).assertCount, is(1));
 	}
 
+	@Test
+	void testBeforeInternalMethod_returns1() throws Exception {
+		TestClassAdapter tests = TestLocator.loadTestClass("TestsWithInternalAssert");
+		assertThat(tests.getInfoForTest(0).testName, is("test_1"));
+		assertThat(tests.getInfoForTest(0).assertCount, is(1));
+	}
+	
 	// twoTestsWithDifferentAsserts_returns1
 	// twoTestsWithCommonAssert_returns1
 	// singleTestWithAssert_returns2
