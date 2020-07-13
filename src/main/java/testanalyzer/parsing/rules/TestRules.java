@@ -5,15 +5,14 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
+import testanalyzer.parsing.AssertInfoHelper;
 import testanalyzer.parsing.AssertingMethods;
 import testanalyzer.parsing.CalledMethods;
 
 public class TestRules extends VoidVisitorAdapter<Void> {
 
-	
 	public  TestClassInfo testClassInfo = new TestClassInfo();
-	AssertingMethods assertingMethods = new AssertingMethods();
-	CalledMethods calledMethods = new CalledMethods();
+	AssertInfoHelper assertInfo = new AssertInfoHelper();
 	int count = 0;
 	
 	@Override
@@ -21,63 +20,20 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 		if (isTest(method)) {
 			if (!isIgnored(method)) {
 				addTestInfo(method);
-				collectCalledMethods(method);
+				assertInfo.collectCalledMethods(method);
 			}
 		}
 		else 
-			addToAssertingMethodList(method);
+			assertInfo.addToAssertingMethodList(method);
 	}
 	
-	private void collectCalledMethods(MethodDeclaration method) {
-		InternalMethodCollector collector = new InternalMethodCollector();
-		method.accept(collector, calledMethods.listToFillFor(method.getNameAsString()));
-	}
-
-	private void addToAssertingMethodList(MethodDeclaration method) {
-		assertingMethods.add(method.getNameAsString(), getNumberOfAsserts(method));
-	}
-
-	private int getNumberOfAsserts(MethodDeclaration method) {
-		AssertRules assertChecker = new AssertRules();
-		method.accept(assertChecker, null);
-		return assertChecker.count;
-	}
 
 	public TestClassInfo getTestClassInfo() {
-		updateTestInfos();
+		assertInfo.updateTestInfos(testClassInfo.testsInfo);
 		return testClassInfo;
 	}
 
-	private void updateTestInfos() {
-		for (TestInfo ti : testClassInfo.testsInfo) {
-			String testName = ti.testName;
-			for (String calledMethod : calledMethods.listFor(testName)) {
-				ti.assertCount += assertingMethods.getAssertCountFor(calledMethod); 
-			}
-		}
-	}
-
-	private int getCalledAssertsCount(MethodDeclaration method) {
-//		List<AssertMethodInfo> calledMethods = getListOfCalledMethods(method);
-//		calledMethods.forEach( iam -> {
-//			count += iam.getNumberOfAsserts();
-//		});
-		return count;
-	}
 	
-	
-//	private List<AssertMethodInfo> getListOfCalledMethods(MethodDeclaration method) {
-//		return assertingMethods;
-//	}
-	
-	private int countAsserts(MethodDeclaration method) {
-		int count = getNumberOfAsserts(method);
-//		count += getCalledAssertsCount(method);
-		return count;
-	}
-
-
-
 	private boolean isTest(MethodDeclaration method) {
 		return method.getAnnotationByName("Test").isPresent();
 	}
@@ -96,12 +52,11 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 	}
 
 	private void addTestInfo(MethodDeclaration method) {
-		TestInfo testInfo = testClassInfo.create();
-		testInfo.testName = method.getNameAsString();
+		TestInfo testInfo = testClassInfo.create(method.getNameAsString());
 		if (hasExpected(method)) {
 			testInfo.assertCount = 1;
 		}
-		testInfo.assertCount += countAsserts(method) ;
+		testInfo.assertCount += assertInfo.getNumberOfAsserts(method) ;
 		testClassInfo.incrementTests();
 	}
 }

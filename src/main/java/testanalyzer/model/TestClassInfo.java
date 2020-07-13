@@ -15,8 +15,9 @@ public class TestClassInfo implements Serializable {
 	public int numberOfValidTests;
 	public String testClassName;
 	
-	public TestInfo create() {
+	public TestInfo create(String testName) {
 		TestInfo testInfo = new TestInfo();
+		testInfo.testName = testName;
 		testsInfo.add(testInfo);
 		return testInfo;
 	}
