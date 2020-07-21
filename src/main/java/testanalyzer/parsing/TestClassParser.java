@@ -51,11 +51,6 @@ public class TestClassParser {
 		return TestClassInfo.NoName;
 	}
 
-	public static boolean isSpringBootTestClass(MethodDeclaration method) {
-		ClassOrInterfaceDeclaration classNode = (ClassOrInterfaceDeclaration) method.getParentNode().orElse(null);
-		return classNode.getAnnotationByName("SpringBootTest").isPresent();
-	}
-
 	public  TestClassType getTestClassType() {
 		TestClassTypeRules testClassTypeChecker = new TestClassTypeRules();
 		cu.accept(testClassTypeChecker, null);

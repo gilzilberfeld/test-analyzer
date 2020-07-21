@@ -6,6 +6,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
 import testanalyzer.parsing.TestClassParser;
+import testanalyzer.parsing.TestClassType;
 import testanalyzer.parsing.TestParser;
 import testanalyzer.parsing.TestType;
 import testanalyzer.parsing.asserts.AssertInfoHelper;
@@ -50,8 +51,14 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 
 
 	private TestType getType(MethodDeclaration method) {
-		if (TestClassParser.isSpringBootTestClass(method))
+		if (isSpringBootTestClass())
 			return TestType.API;
 		return TestType.Unit;
 	}
+	
+	public boolean isSpringBootTestClass() {
+		return (testClassInfo.type == TestClassType.SpringBoot);
+	}
+
+
 }
