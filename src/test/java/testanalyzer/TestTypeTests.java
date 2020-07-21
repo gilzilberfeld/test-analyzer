@@ -3,8 +3,6 @@ package testanalyzer;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.io.FileNotFoundException;
-
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
@@ -20,17 +18,23 @@ class TestTypeTests {
 	@Test
 	void test_withoutTestClassAnnotation_isUnitTest() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTestWithAssert");
-		assertThat(tests.getTestClassType(), is(TestClassType.Unit));
 		testNumber(0).isType(TestType.Unit);
 	}
-	
+
+		
 	@Test
 	void test_withTestSpringBootClassAnnotation_andPerform_IsAPITest() throws Exception {
 		tests = TestLocator.loadTestClass("SpringTestWithSingleExpect");
-		assertThat(tests.getTestClassType(), is(TestClassType.SpringBoot));
 		testNumber(0).isType(TestType.API);
 	}
-	
+
+	@Test
+	void testClass_withSpringBootTestClassAnnotation_IsSpringBootTest() throws Exception {
+		tests = TestLocator.loadTestClass("SpringTestWithSingleExpect");
+		testClass().isType(TestClassType.SpringBoot);
+	}
+
+
 	/*
 	@Test
 	void test_withTestSpringRunnerClassAnnotation_withoutPerform_IsSpringTest() throws Exception {
@@ -80,4 +84,12 @@ class TestTypeTests {
 		this.testNumber = i;
 		return this;
 	}
+	private TestTypeTests testClass() {
+		return this;
+	}
+
+	private void isType(TestClassType type) throws Exception {
+		assertThat(tests.getTestClassType(), is(type));
+	}
+
 }
