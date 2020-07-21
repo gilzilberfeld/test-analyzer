@@ -1,10 +1,15 @@
 package testanalyzer.parsing.rules;
 
+import java.util.Optional;
+
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
+import testanalyzer.parsing.TestParser;
+import testanalyzer.parsing.TestType;
 import testanalyzer.parsing.asserts.AssertInfoHelper;
 
 public class TestRules extends VoidVisitorAdapter<Void> {
@@ -15,8 +20,8 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
-		if (isTest(method)) {
-			if (!isIgnored(method)) {
+		if (TestParser.isTest(method)) {
+			if (!TestParser.isIgnored(method)) {
 				addTestInfo(method);
 				assertInfo.collectCalledMethods(method);
 			}
@@ -32,29 +37,20 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 	}
 
 	
-	private boolean isTest(MethodDeclaration method) {
-		return method.getAnnotationByName("Test").isPresent();
-	}
-
-	private boolean isIgnored(MethodDeclaration method) {
-		return method.getAnnotationByName("Disabled").isPresent() || method.getAnnotationByName("Ignore").isPresent();
-	}
-
-	private boolean hasExpected(MethodDeclaration method) {
-		ExpectedJUnit4Rules expectedAnnotationFinder = new ExpectedJUnit4Rules();
-		method.accept(expectedAnnotationFinder, null);
-		ExpectedRuleJUnit4Rules expectedRuleFinder = new ExpectedRuleJUnit4Rules();
-		method.accept(expectedRuleFinder, null);
-		return expectedAnnotationFinder.hasExpectedAnnotation ||
-				expectedRuleFinder.hasExpectedRule;
-	}
-
 	private void addTestInfo(MethodDeclaration method) {
 		TestInfo testInfo = testClassInfo.create(method.getNameAsString());
-		if (hasExpected(method)) {
+		if (TestParser.hasExpected(method)) {
 			testInfo.assertCount = 1;
 		}
-		testInfo.assertCount += assertInfo.getNumberOfAsserts(method) ;
+		testInfo.assertCount += assertInfo.getNumberOfAsserts(method);
+		testInfo.type = getType(method);
 		testClassInfo.incrementTests();
+	}
+
+
+	private TestType getType(MethodDeclaration method) {
+		if (TestParser.isSpringTestClass(method))
+			return TestType.API;
+		return TestType.Unit;
 	}
 }

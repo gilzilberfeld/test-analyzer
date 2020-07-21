@@ -9,7 +9,7 @@ import testanalyzer.helpers.TestLocator;
 import testanalyzer.model.TestInfo;
 import testanalyzer.parsing.TestClassAdapter;
 
-class TestIdentificationTests {
+class TestCountingTests {
 
 	private TestClassAdapter tests;
 
