@@ -17,7 +17,7 @@ public class TestLocator {
 	private static final int DEPTH = 5;
 	
 	
-	public static TestClassAdapter loadTestClass(String className) throws FileNotFoundException {
+	public static TestClassAdapter loadTestClass(String className) throws Exception {
 		String filePath = findFilePath(className);
 		TestClassParser resolver = new TestClassParser(filePath);
 		return new TestClassAdapter(resolver);

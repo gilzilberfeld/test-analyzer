@@ -17,8 +17,9 @@ import testanalyzer.parsing.rules.TestRules;
 public class TestClassParser {
 
 	private CompilationUnit cu;
+	private TestClassInfo testClassInfo;
 
-	public TestClassParser(String path) throws FileNotFoundException {
+	public TestClassParser(String path) throws Exception {
 		this.cu = StaticJavaParser.parse(new File(path));
 	}
 
@@ -35,11 +36,10 @@ public class TestClassParser {
 	}
 
 	public TestClassInfo getTestClassInfo() throws Exception {
-		TestRules visitor = new TestRules();
+		testClassInfo = new TestClassInfo(getTestClassType(), getTestClassName());
+		TestRules visitor = new TestRules(testClassInfo);
 		cu.accept(visitor, null);
-		TestClassInfo testClassInfo = visitor.getTestClassInfo();
-		testClassInfo.type = getTestClassType();
-		testClassInfo.testClassName = getTestClassName();
+		visitor.updateAssertCount(testClassInfo);
 		return testClassInfo;
 	}
 

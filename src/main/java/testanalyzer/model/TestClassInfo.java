@@ -18,6 +18,11 @@ public class TestClassInfo implements Serializable {
 	public String testClassName;
 	public TestClassType type;
 	
+	public TestClassInfo(TestClassType testClassType, String testClassName) {
+		this.testClassName = testClassName;
+		this.type = testClassType;
+	}
+
 	public TestInfo create(String testName) {
 		TestInfo testInfo = new TestInfo();
 		testInfo.testName = testName;

@@ -12,9 +12,13 @@ import testanalyzer.parsing.asserts.AssertInfoHelper;
 
 public class TestRules extends VoidVisitorAdapter<Void> {
 
-	public  TestClassInfo testClassInfo = new TestClassInfo();
+	private  TestClassInfo testClassInfo;
 	AssertInfoHelper assertInfo = new AssertInfoHelper();
 	int count = 0;
+
+	public TestRules(TestClassInfo testClassInfo) {
+		this.testClassInfo = testClassInfo;
+	}
 	
 	@Override
 	public void visit(MethodDeclaration method, Void arg) {
@@ -29,9 +33,8 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 	}
 	
 
-	public TestClassInfo getTestClassInfo() {
+	public void updateAssertCount(TestClassInfo testClassInfo) {
 		assertInfo.updateTestInfos(testClassInfo.testsInfo);
-		return testClassInfo;
 	}
 
 	
