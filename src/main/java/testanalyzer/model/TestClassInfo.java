@@ -8,12 +8,15 @@ import org.hamcrest.Matcher;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import testanalyzer.parsing.TestClassType;
+
 public class TestClassInfo implements Serializable {
 
 	public static final String NoName = "";
 	public List<TestInfo> testsInfo = new ArrayList<TestInfo>();
 	public int numberOfValidTests;
 	public String testClassName;
+	public TestClassType type;
 	
 	public TestInfo create(String testName) {
 		TestInfo testInfo = new TestInfo();

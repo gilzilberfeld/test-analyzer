@@ -20,4 +20,10 @@ public class SpringTestWithSingleExpect {
 	public void test1() throws Exception {
 		mockMvc.perform(get("/")).andExpect(status().isOk());
 	}
+	
+	
+	@Test
+	public void test2() throws Exception {
+	}
+
 }

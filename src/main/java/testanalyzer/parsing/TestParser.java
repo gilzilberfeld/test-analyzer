@@ -1,17 +1,11 @@
 package testanalyzer.parsing;
 
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
 import testanalyzer.parsing.rules.ExpectedJUnit4Rules;
 import testanalyzer.parsing.rules.ExpectedRuleJUnit4Rules;
 
 public class TestParser {
-
-	public static boolean isSpringTestClass(MethodDeclaration method) {
-		ClassOrInterfaceDeclaration classNode = (ClassOrInterfaceDeclaration) method.getParentNode().orElse(null);
-		return classNode.getAnnotationByName("SpringBootTest").isPresent();
-	}
 
 	public static boolean isTest(MethodDeclaration method) {
 		return method.getAnnotationByName("Test").isPresent();

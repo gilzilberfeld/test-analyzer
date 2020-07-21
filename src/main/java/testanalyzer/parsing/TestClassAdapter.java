@@ -18,7 +18,7 @@ public class TestClassAdapter {
 	}
 
 	public TestInfo getInfoForTest(int i) throws Exception {
-		TestClassInfo qualityList = parser.getTestQualityData();
+		TestClassInfo qualityList = parser.getTestClassInfo();
 		if (qualityList.isEmpty())
 			return emptyTestInfo();
 		return qualityList.get(i);
@@ -34,7 +34,11 @@ public class TestClassAdapter {
 	}
 
 	public TestClassInfo getAll() throws Exception {
-		return parser.getTestQualityData();
+		return parser.getTestClassInfo();
+	}
+
+	public TestClassType getTestClassType() throws Exception {
+		return parser.getTestClassInfo().type;
 	}
 
 }
