@@ -15,11 +15,16 @@ class TestTypeTests {
 	private TestClassAdapter tests;
 	private int testNumber;
 	@Test
-	void noTestClassAnnotation_isUnitTest() throws Exception {
+	void noTestClassAnnotation_noRestTemplate_isUnitTest() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTestWithAssert");
 		testNumber(0).isType(TestType.Unit);
 	}
 	
+	@Test
+	void noTestClassAnnotation_withRestTemplate_isApiTest() throws Exception {
+		tests = TestLocator.loadTestClass("SingleTestWithRestTemplate");
+		testNumber(0).isType(TestType.API);
+	}
 	@Test
 	void springBootTestClass_withPerform_isAPITest() throws Exception {
 		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
@@ -56,7 +61,7 @@ class TestTypeTests {
 						RestTemplate		API	
 	
 	Spring			|	None			|	Spring	v
-					|	RestTemplate	| 	API		p
+					|	RestTemplate	| 	API		v
 	
 	SpringBootTest	|	None			|	Spring
 					|	RestTemplate	| 	API
