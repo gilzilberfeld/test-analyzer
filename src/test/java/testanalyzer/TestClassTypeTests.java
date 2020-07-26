@@ -33,7 +33,7 @@ class TestClassTypeTests {
 
 	@Test
 	void testClass_withSpringBootTestClassAnnotation_IsSpringBootTest() throws Exception {
-		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
+		tests = TestLocator.loadTestClass("SpringBootTests");
 		testClass().isType(TestClassType.SpringBoot);
 	}
 

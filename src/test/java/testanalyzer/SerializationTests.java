@@ -28,6 +28,7 @@ class SerializationTests {
 		assertThat(json, containsString("test2"));
 		assertThat(json, containsString("ComboTest"));
 		assertThat(json, containsString(TEST_COUNT));
+		assertThat(json, containsString("Unit"));
 	}
 
 	@Test
@@ -37,7 +38,6 @@ class SerializationTests {
 		String json = testContainer.toJson();
 
 		assertThat(json, containsString(TESTS_PATH));
-
 		count = (json.split("test1", -1).length) - 1;
 		assertThat(count, is(4));
 		count = (json.split("test2", -1).length) - 1;
@@ -50,6 +50,7 @@ class SerializationTests {
 		assertThat(json, containsString("SingleTestWithTwoAsserts"));
 		assertThat(json, containsString("TwoTestWithOneAssert"));
 		assertThat(json, containsString("TwoTestWithOneAssertAndMethods"));
+		assertThat(json, containsString("testClassType"));
 
 	}
 

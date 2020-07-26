@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SpringBootTestWithSingleExpect {
+public class SpringBootTests{
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -24,6 +25,19 @@ public class SpringBootTestWithSingleExpect {
 	
 	@Test
 	public void test2() throws Exception {
+	}
+
+	@Test
+	public void test3() throws Exception {
+		RestTemplate template = new RestTemplate();
+		template.getForObject("http://localhost", String.class);
+	}
+
+	@Test
+	public void test4() throws Exception {
+		RestTemplate template = new RestTemplate();
+		template.getForObject("http://localhost", String.class);
+		mockMvc.perform(get("/")).andExpect(status().isOk());
 	}
 
 }
