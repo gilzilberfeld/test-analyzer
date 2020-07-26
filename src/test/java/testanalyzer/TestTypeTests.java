@@ -24,23 +24,22 @@ class TestTypeTests {
 		
 	@Test
 	void test_withTestSpringBootClassAnnotation_andPerform_IsAPITest() throws Exception {
-		tests = TestLocator.loadTestClass("SpringTestWithSingleExpect");
+		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
 		testNumber(0).isType(TestType.API);
 	}
 
 	@Test
-	void testClass_withSpringBootTestClassAnnotation_IsSpringBootTest() throws Exception {
-		tests = TestLocator.loadTestClass("SpringTestWithSingleExpect");
-		testClass().isType(TestClassType.SpringBoot);
-	}
-
-
-	/*
-	@Test
-	void test_withTestSpringRunnerClassAnnotation_withoutPerform_IsSpringTest() throws Exception {
-		tests = TestLocator.loadTestClass("SpringTestWithSingleExpect");
+	void test_withSpringBootTestClassAnnotation_noPerform_isSpringTest() throws Exception {
+		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
 		testNumber(1).isType(TestType.Spring);
 	}
+	@Test
+	void test_withTestSpringRunnerClassAnnotation_IsSpringTest() throws Exception {
+		tests = TestLocator.loadTestClass("SpringRunnerTest");
+		testNumber(0).isType(TestType.Spring);
+	}
+	
+	/*
 	@Test
 	void test_withPerform_IsAPITest() throws Exception {
 
@@ -79,17 +78,9 @@ class TestTypeTests {
 		assertThat(tests.getInfoForTest(testNumber).type, is (type));
 	}
 	
-	
 	private TestTypeTests testNumber(int i) {
 		this.testNumber = i;
 		return this;
-	}
-	private TestTypeTests testClass() {
-		return this;
-	}
-
-	private void isType(TestClassType type) throws Exception {
-		assertThat(tests.getTestClassType(), is(type));
 	}
 
 }

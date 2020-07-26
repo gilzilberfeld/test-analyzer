@@ -52,10 +52,26 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 
 	private TestType getType(MethodDeclaration method) {
 		if (isSpringBootTestClass())
-			return TestType.API;
+			if (callsAPI(method))
+				return TestType.API;
+			else 
+				return TestType.Spring;
+		if (isSpringRunnerClass())
+			return TestType.Spring;
 		return TestType.Unit;
 	}
 	
+	
+	private boolean callsAPI(MethodDeclaration method) {
+		APIRules apiChecker = new APIRules();
+		method.accept(apiChecker, null);
+		return apiChecker.callsPerform;
+	}
+
+	private boolean isSpringRunnerClass() {
+		return (testClassInfo.type == TestClassType.Spring);
+	}
+
 	public boolean isSpringBootTestClass() {
 		return (testClassInfo.type == TestClassType.SpringBoot);
 	}

@@ -20,7 +20,7 @@ class SpringMockMvcTests {
 
 	@Test
 	void one_when_perform_with_single_expect() throws Exception {
-		tests = TestLocator.loadTestClass("SpringTestWithSingleExpect");
+		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
 		assertThat(tests.getInfoForTest(0).assertCount, is(1));
 	}
 
