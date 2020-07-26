@@ -14,35 +14,60 @@ class TestTypeTests {
 
 	private TestClassAdapter tests;
 	private int testNumber;
-	
 	@Test
-	void test_withoutTestClassAnnotation_isUnitTest() throws Exception {
+	void noTestClassAnnotation_isUnitTest() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTestWithAssert");
 		testNumber(0).isType(TestType.Unit);
 	}
-
-		
+	
 	@Test
-	void test_withTestSpringBootClassAnnotation_andPerform_IsAPITest() throws Exception {
+	void springBootTestClass_withPerform_isAPITest() throws Exception {
 		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
 		testNumber(0).isType(TestType.API);
 	}
+	
 
 	@Test
-	void test_withSpringBootTestClassAnnotation_noPerform_isSpringTest() throws Exception {
+	void springBootTestClass_noPerform_isSpringTest() throws Exception {
 		tests = TestLocator.loadTestClass("SpringBootTestWithSingleExpect");
 		testNumber(1).isType(TestType.Spring);
 	}
+
 	@Test
-	void test_withTestSpringRunnerClassAnnotation_IsSpringTest() throws Exception {
+	void springRunnerClass_noRestTemplateCall_isSpringTest() throws Exception {
 		tests = TestLocator.loadTestClass("SpringRunnerTest");
 		testNumber(0).isType(TestType.Spring);
 	}
-	
-	/*
-	@Test
-	void test_withPerform_IsAPITest() throws Exception {
 
+	@Test
+	void springRunnerClass_withRestTemplateCall_isApiTest() throws Exception {
+		tests = TestLocator.loadTestClass("SpringRunnerTest");
+		testNumber(1).isType(TestType.API);
+		testNumber(2).isType(TestType.API);
+		testNumber(3).isType(TestType.API);
+		testNumber(4).isType(TestType.API);
+		testNumber(5).isType(TestType.API);
+	}
+
+	/*
+	
+	Class			|	Calls			|	Type
+	None				None				Unit	v
+						RestTemplate		API	
+	
+	Spring			|	None			|	Spring	v
+					|	RestTemplate	| 	API		p
+	
+	SpringBootTest	|	None			|	Spring
+					|	RestTemplate	| 	API
+					|	Perform			|	API 	v
+					| 	Both			|	API
+	 */
+
+	/*
+	
+	
+	
 	
 	@Test
 	void test_withTestClassAnnotation_andExchange_IsAPITest() {
