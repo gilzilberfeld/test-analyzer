@@ -10,32 +10,25 @@ import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestClassType;
 import testanalyzer.parsing.asserts.AssertInfoHelper;
 import testanalyzer.parsing.checkers.TestChecker;
-import testanalyzer.parsing.checkers.TestClassChecker;
 import testanalyzer.parsing.checkers.TestClassTypeChecker;
+import testanalyzer.parsing.rules.TestClassRules;
 
 public class TestClassParser {
 
 	private CompilationUnit cu;
-	private TestClassInfo testClassInfo;
 
 	public TestClassParser(String path) throws Exception {
 		this.cu = StaticJavaParser.parse(new File(path));
 	}
 
-	public boolean isTestClass() {
-		TestClassChecker testClassChecker = new TestClassChecker();
-		cu.accept(testClassChecker, null);
-		return testClassChecker.hasTestMethods;
-	}
-
 	public int getNumberOfTests() throws Exception {
-		if (isTestClass())
+		if (TestClassRules.isTestClass(cu))
 			return getTestClassInfo().numberOfValidTests;
 		return 0;
 	}
 
 	public TestClassInfo getTestClassInfo() throws Exception {
-		testClassInfo = new TestClassInfo(getTestClassType(), getTestClassName());
+		TestClassInfo testClassInfo = new TestClassInfo(getTestClassType(), getTestClassName());
 		AssertInfoHelper assertHelper = new AssertInfoHelper();
 		TestChecker testChecker = new TestChecker(testClassInfo, assertHelper);
 		cu.accept(testChecker, null);
@@ -46,7 +39,7 @@ public class TestClassParser {
 
 	public String getTestClassName() throws Exception {
 		Optional<String> primaryTypeName = cu.getPrimaryTypeName();
-		if (primaryTypeName.isPresent() && isTestClass())
+		if (primaryTypeName.isPresent() && TestClassRules.isTestClass(cu))
 			return primaryTypeName.get();
 		return TestClassInfo.NoName;
 	}

@@ -11,9 +11,8 @@ import testanalyzer.parsing.checkers.AssertChecker;
 public class AssertInfoHelper {
 	AssertingMethods assertingMethods = new AssertingMethods();
 	CalledMethods calledMethods = new CalledMethods();
-
-	private int assertCount;
-	private int assertNotNullCount;
+	private AssertCountInfo assertInfo = new AssertCountInfo();
+	
 	
 	public void collectCalledMethods(MethodDeclaration method) {
 		InternalMethodCollector collector = new InternalMethodCollector();
@@ -21,25 +20,25 @@ public class AssertInfoHelper {
 	}
 
 	public void addToAssertingMethodList(MethodDeclaration method) {
-		assertingMethods.add(method.getNameAsString(), getNumberOfAsserts(method));
+		assertingMethods.add(method.getNameAsString(), 
+				getNumberOfAsserts(method));
 	}
 	
 	public int getNumberOfAsserts(MethodDeclaration method) {
-		AssertChecker assertChecker = parseAsserts(method);
-		this.assertCount= assertChecker.assertCount;
-		this.assertNotNullCount = assertChecker.assertNotNullCount;
-		return this.assertCount; 
+		//parseAsserts(method);
+		return assertInfo.assertCount; 
+	}
+	
+	public AssertCountInfo getAssertCountInfo(MethodDeclaration method) {
+		parseAsserts(method);
+		return assertInfo;
 	}
 
-	private AssertChecker parseAsserts(MethodDeclaration method) {
+	private void parseAsserts(MethodDeclaration method) {
 		AssertChecker assertChecker = new AssertChecker();
 		method.accept(assertChecker, null);
-		return assertChecker;
-	}
-	
-	
-	public int getNumberOfNotNullAsserts(MethodDeclaration method) {
-		return this.assertNotNullCount;
+		assertInfo.assertCount= assertChecker.assertCount;
+		assertInfo.assertNotNullCount = assertChecker.assertNotNullCount;
 	}
 
 	public void updateTestInfos(List<TestInfo> tests) {

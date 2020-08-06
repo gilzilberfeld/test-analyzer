@@ -29,6 +29,7 @@ class SerializationTests {
 		assertThat(json, containsString("ComboTest"));
 		assertThat(json, containsString(TEST_COUNT));
 		assertThat(json, containsString("Unit"));
+		assertThat(json, containsString("assertNotNull"));
 	}
 
 	@Test

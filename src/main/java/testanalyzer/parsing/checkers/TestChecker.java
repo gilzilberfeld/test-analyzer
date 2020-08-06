@@ -7,6 +7,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import testanalyzer.model.TestClassInfo;
 import testanalyzer.model.TestInfo;
+import testanalyzer.parsing.asserts.AssertCountInfo;
 import testanalyzer.parsing.asserts.AssertInfoHelper;
 import testanalyzer.parsing.rules.TestRules;
 
@@ -25,7 +26,7 @@ public class TestChecker extends VoidVisitorAdapter<Void> {
 	public void visit(MethodDeclaration method, Void arg) {
 		if (TestRules.isTest(method)) {
 			if (!TestRules.isIgnored(method)) {
-				addTestInfo(method);
+				createTestInfo(method);
 				assertInfo.collectCalledMethods(method);
 			}
 		}
@@ -33,19 +34,15 @@ public class TestChecker extends VoidVisitorAdapter<Void> {
 			assertInfo.addToAssertingMethodList(method);
 	}
 	
-
-	public void updateAssertCount(List<TestInfo> tests) {
-		assertInfo.updateTestInfos(tests);
-	}
-
 	
-	private void addTestInfo(MethodDeclaration method) {
+	private void createTestInfo(MethodDeclaration method) {
 		TestInfo testInfo = testClassInfo.createTestInfo(method.getNameAsString());
 		if (TestRules.hasExpected(method)) {
 			testInfo.assertCount = 1;
 		}
-		testInfo.assertCount += assertInfo.getNumberOfAsserts(method);
-		testInfo.assertNotNullCount += assertInfo.getNumberOfNotNullAsserts(method);
+		AssertCountInfo assertCountInfo = assertInfo.getAssertCountInfo(method);
+		testInfo.assertCount += assertCountInfo.assertCount;
+		testInfo.assertNotNullCount += assertCountInfo.assertNotNullCount;
 		testInfo.type = TestRules.getType(method, testClassInfo.type);
 		testClassInfo.incrementTests();
 	}

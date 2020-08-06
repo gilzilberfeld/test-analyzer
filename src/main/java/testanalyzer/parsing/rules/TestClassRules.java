@@ -1,8 +1,10 @@
 package testanalyzer.parsing.rules;
 
+import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
 import testanalyzer.model.TestClassType;
+import testanalyzer.parsing.checkers.TestClassChecker;
 
 public class TestClassRules {
 
@@ -29,6 +31,12 @@ public class TestClassRules {
 
 	private static String getRunnerName(ClassOrInterfaceDeclaration cls) {
 		return cls.getAnnotationByName("RunWith").get().getChildNodes().get(1).toString();
+	}
+
+	public static boolean isTestClass(CompilationUnit compilationUnit) {
+		TestClassChecker testClassChecker = new TestClassChecker();
+		compilationUnit.accept(testClassChecker, null);
+		return testClassChecker.hasTestMethods;
 	}
 
 }
