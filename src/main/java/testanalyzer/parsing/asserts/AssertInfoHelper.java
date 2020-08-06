@@ -19,14 +19,15 @@ public class AssertInfoHelper {
 		method.accept(collector, calledMethods.listToFillFor(method.getNameAsString()));
 	}
 
-	public void addToAssertingMethodList(MethodDeclaration method) {
+	public void addInternalAsserts(MethodDeclaration method) {
 		assertingMethods.add(method.getNameAsString(), 
-				getNumberOfAsserts(method));
+				getNumberOfInternalAsserts(method));
 	}
 	
-	public int getNumberOfAsserts(MethodDeclaration method) {
-		//parseAsserts(method);
-		return assertInfo.assertCount; 
+	public int getNumberOfInternalAsserts(MethodDeclaration method) {
+		AssertChecker assertChecker = new AssertChecker();
+		method.accept(assertChecker, null);
+		return assertChecker.assertCount;
 	}
 	
 	public AssertCountInfo getAssertCountInfo(MethodDeclaration method) {

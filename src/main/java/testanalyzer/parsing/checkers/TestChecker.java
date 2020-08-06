@@ -31,7 +31,7 @@ public class TestChecker extends VoidVisitorAdapter<Void> {
 			}
 		}
 		else 
-			assertInfo.addToAssertingMethodList(method);
+			assertInfo.addInternalAsserts(method);
 	}
 	
 	
