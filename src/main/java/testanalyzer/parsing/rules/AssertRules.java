@@ -5,14 +5,17 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class AssertRules extends VoidVisitorAdapter<Void> {
 
-	public int count = 0 ;
+	public int assertCount = 0 ;
+	public int assertNotNullCount = 0 ;
 	
 	@Override
 	public void visit(MethodCallExpr method, Void arg) {
 		String name = method.getName().toString();
 		if (name.contains("assert"))
-			count++;
-		count += countExpects(method);
+			assertCount++;
+		assertCount += countExpects(method);
+		if (name.contains("assertNotNull"))
+			assertNotNullCount++;
 	}
 
 	private int countExpects(MethodCallExpr method) {

@@ -45,6 +45,7 @@ public class TestRules extends VoidVisitorAdapter<Void> {
 			testInfo.assertCount = 1;
 		}
 		testInfo.assertCount += assertInfo.getNumberOfAsserts(method);
+		testInfo.assertNotNullCount += assertInfo.getNumberOfNotNullAsserts(method);
 		testInfo.type = getType(method);
 		testClassInfo.incrementTests();
 	}

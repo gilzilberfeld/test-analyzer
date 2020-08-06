@@ -1,0 +1,9 @@
+Future possible features:
+
+Internal calls :
+	test type identification
+	assertNotNulls
+	
+Test type:	
+	identify recorded API tests (with called API)
+
