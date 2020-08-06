@@ -3,6 +3,7 @@ package testanalyzer.parsing;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import testanalyzer.model.TestClassInfo;
+import testanalyzer.model.TestClassType;
 import testanalyzer.model.TestInfo;
 
 public class TestClassAdapter {

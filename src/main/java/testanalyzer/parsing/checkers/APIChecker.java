@@ -1,9 +1,9 @@
-package testanalyzer.parsing.rules;
+package testanalyzer.parsing.checkers;
 
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-public class APIRules extends VoidVisitorAdapter<Void> {
+public class APIChecker extends VoidVisitorAdapter<Void> {
 
 	public boolean callsPerform = false;
 	public boolean callsRestTemplate = false;

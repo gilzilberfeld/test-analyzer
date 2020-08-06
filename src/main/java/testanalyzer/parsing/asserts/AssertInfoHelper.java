@@ -5,8 +5,8 @@ import java.util.List;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
 import testanalyzer.model.TestInfo;
-import testanalyzer.parsing.rules.AssertRules;
-import testanalyzer.parsing.rules.InternalMethodCollector;
+import testanalyzer.parsing.InternalMethodCollector;
+import testanalyzer.parsing.checkers.AssertChecker;
 
 public class AssertInfoHelper {
 	AssertingMethods assertingMethods = new AssertingMethods();
@@ -25,14 +25,14 @@ public class AssertInfoHelper {
 	}
 	
 	public int getNumberOfAsserts(MethodDeclaration method) {
-		AssertRules assertChecker = parseAsserts(method);
+		AssertChecker assertChecker = parseAsserts(method);
 		this.assertCount= assertChecker.assertCount;
 		this.assertNotNullCount = assertChecker.assertNotNullCount;
 		return this.assertCount; 
 	}
 
-	private AssertRules parseAsserts(MethodDeclaration method) {
-		AssertRules assertChecker = new AssertRules();
+	private AssertChecker parseAsserts(MethodDeclaration method) {
+		AssertChecker assertChecker = new AssertChecker();
 		method.accept(assertChecker, null);
 		return assertChecker;
 	}

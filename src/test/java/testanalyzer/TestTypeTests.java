@@ -6,9 +6,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
+import testanalyzer.model.TestClassType;
+import testanalyzer.model.TestType;
 import testanalyzer.parsing.TestClassAdapter;
-import testanalyzer.parsing.TestClassType;
-import testanalyzer.parsing.TestType;
 
 class TestTypeTests {
 

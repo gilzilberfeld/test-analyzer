@@ -1,16 +1,34 @@
 package testanalyzer.parsing.rules;
 
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
-public class TestClassRules extends VoidVisitorAdapter<Void> {
+import testanalyzer.model.TestClassType;
 
-	public boolean hasTestMethods=false;
+public class TestClassRules {
 
-	@Override
-	public void visit(MethodDeclaration method, Void arg) {
-		 if (method.getAnnotationByName("Test").isPresent()) {
-         	hasTestMethods = true;
-         }
+	public static boolean isSpringRunnerClass(TestClassType testClassType) {
+		return (testClassType == TestClassType.Spring);
 	}
+
+	public static boolean isSpringBootTestClass(TestClassType testClassType) {
+		return (testClassType == TestClassType.SpringBoot);
+	}
+
+	public static boolean hasSpringBootTestAnnotation(ClassOrInterfaceDeclaration cls) {
+		return cls.getAnnotationByName("SpringBootTest").isPresent();
+	}
+
+	public static boolean hasRunWithAnnotation(ClassOrInterfaceDeclaration cls) {
+		return cls.getAnnotationByName("RunWith").isPresent();
+	}
+
+	
+	public static boolean runnerNameIs(ClassOrInterfaceDeclaration cls, String runnerName) {
+		return getRunnerName(cls).contains(runnerName);
+	}
+
+	private static String getRunnerName(ClassOrInterfaceDeclaration cls) {
+		return cls.getAnnotationByName("RunWith").get().getChildNodes().get(1).toString();
+	}
+
 }

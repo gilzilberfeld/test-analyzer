@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
+import testanalyzer.model.TestClassType;
 import testanalyzer.parsing.TestClassAdapter;
-import testanalyzer.parsing.TestClassType;
 
 class TestClassTypeTests {
 

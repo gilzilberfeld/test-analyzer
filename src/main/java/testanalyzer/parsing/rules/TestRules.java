@@ -1,78 +1,45 @@
 package testanalyzer.parsing.rules;
 
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import testanalyzer.model.TestClassInfo;
-import testanalyzer.model.TestInfo;
-import testanalyzer.parsing.TestClassParser;
-import testanalyzer.parsing.TestClassType;
-import testanalyzer.parsing.TestParser;
-import testanalyzer.parsing.TestType;
-import testanalyzer.parsing.asserts.AssertInfoHelper;
+import testanalyzer.model.TestClassType;
+import testanalyzer.model.TestType;
+import testanalyzer.parsing.checkers.APIChecker;
+import testanalyzer.parsing.checkers.ExpectedJUnit4Checker;
+import testanalyzer.parsing.checkers.ExpectedRuleJUnit4Checker;
 
-public class TestRules extends VoidVisitorAdapter<Void> {
+public class TestRules {
 
-	private  TestClassInfo testClassInfo;
-	AssertInfoHelper assertInfo = new AssertInfoHelper();
-	int count = 0;
-
-	public TestRules(TestClassInfo testClassInfo) {
-		this.testClassInfo = testClassInfo;
-	}
-	
-	@Override
-	public void visit(MethodDeclaration method, Void arg) {
-		if (TestParser.isTest(method)) {
-			if (!TestParser.isIgnored(method)) {
-				addTestInfo(method);
-				assertInfo.collectCalledMethods(method);
-			}
-		}
-		else 
-			assertInfo.addToAssertingMethodList(method);
-	}
-	
-
-	public void updateAssertCount(TestClassInfo testClassInfo) {
-		assertInfo.updateTestInfos(testClassInfo.testsInfo);
-	}
-
-	
-	private void addTestInfo(MethodDeclaration method) {
-		TestInfo testInfo = testClassInfo.create(method.getNameAsString());
-		if (TestParser.hasExpected(method)) {
-			testInfo.assertCount = 1;
-		}
-		testInfo.assertCount += assertInfo.getNumberOfAsserts(method);
-		testInfo.assertNotNullCount += assertInfo.getNumberOfNotNullAsserts(method);
-		testInfo.type = getType(method);
-		testClassInfo.incrementTests();
-	}
-
-
-	private TestType getType(MethodDeclaration method) {
-		if (callsAPI(method))
-			return TestType.API;
-		if (isSpringBootTestClass() || isSpringRunnerClass())
-				return TestType.Spring;
-		return TestType.Unit;
-	}
-	
-	
-	private boolean callsAPI(MethodDeclaration method) {
-		APIRules apiChecker = new APIRules();
+	public static boolean callsAPI(MethodDeclaration method) {
+		APIChecker apiChecker = new APIChecker();
 		method.accept(apiChecker, null);
 		return apiChecker.callsPerform || apiChecker.callsRestTemplate;
 	}
 
-	private boolean isSpringRunnerClass() {
-		return (testClassInfo.type == TestClassType.Spring);
+	public static TestType getType(MethodDeclaration method, TestClassType testClassType) {
+		if (callsAPI(method))
+			return TestType.API;
+		if (TestClassRules.isSpringBootTestClass(testClassType) 
+				|| TestClassRules.isSpringRunnerClass(testClassType))
+				return TestType.Spring;
+		return TestType.Unit;
 	}
 
-	public boolean isSpringBootTestClass() {
-		return (testClassInfo.type == TestClassType.SpringBoot);
+	public static boolean isTest(MethodDeclaration method) {
+		return method.getAnnotationByName("Test").isPresent();
 	}
 
+	public static boolean isIgnored(MethodDeclaration method) {
+		return method.getAnnotationByName("Disabled").isPresent() || method.getAnnotationByName("Ignore").isPresent();
+	}
+
+	public static boolean hasExpected(MethodDeclaration method) {
+		ExpectedJUnit4Checker expectedAnnotationFinder = new ExpectedJUnit4Checker();
+		method.accept(expectedAnnotationFinder, null);
+		ExpectedRuleJUnit4Checker expectedRuleFinder = new ExpectedRuleJUnit4Checker();
+		method.accept(expectedRuleFinder, null);
+		return expectedAnnotationFinder.hasExpectedAnnotation ||
+				expectedRuleFinder.hasExpectedRule;
+	}
 
 }

@@ -1,18 +1,17 @@
 package testanalyzer.parsing;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Optional;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
 
 import testanalyzer.model.TestClassInfo;
-import testanalyzer.parsing.rules.TestClassRules;
-import testanalyzer.parsing.rules.TestClassTypeRules;
-import testanalyzer.parsing.rules.TestRules;
+import testanalyzer.model.TestClassType;
+import testanalyzer.parsing.asserts.AssertInfoHelper;
+import testanalyzer.parsing.checkers.TestChecker;
+import testanalyzer.parsing.checkers.TestClassChecker;
+import testanalyzer.parsing.checkers.TestClassTypeChecker;
 
 public class TestClassParser {
 
@@ -24,7 +23,7 @@ public class TestClassParser {
 	}
 
 	public boolean isTestClass() {
-		TestClassRules testClassChecker = new TestClassRules();
+		TestClassChecker testClassChecker = new TestClassChecker();
 		cu.accept(testClassChecker, null);
 		return testClassChecker.hasTestMethods;
 	}
@@ -37,9 +36,10 @@ public class TestClassParser {
 
 	public TestClassInfo getTestClassInfo() throws Exception {
 		testClassInfo = new TestClassInfo(getTestClassType(), getTestClassName());
-		TestRules visitor = new TestRules(testClassInfo);
-		cu.accept(visitor, null);
-		visitor.updateAssertCount(testClassInfo);
+		AssertInfoHelper assertHelper = new AssertInfoHelper();
+		TestChecker testChecker = new TestChecker(testClassInfo, assertHelper);
+		cu.accept(testChecker, null);
+		assertHelper.updateTestInfos(testClassInfo.testsInfo);
 		return testClassInfo;
 	}
 
@@ -52,7 +52,7 @@ public class TestClassParser {
 	}
 
 	public  TestClassType getTestClassType() {
-		TestClassTypeRules testClassTypeChecker = new TestClassTypeRules();
+		TestClassTypeChecker testClassTypeChecker = new TestClassTypeChecker();
 		cu.accept(testClassTypeChecker, null);
 		return testClassTypeChecker.type;
 	}

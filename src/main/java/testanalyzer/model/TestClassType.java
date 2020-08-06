@@ -1,4 +1,4 @@
-package testanalyzer.parsing;
+package testanalyzer.model;
 
 public enum TestClassType {
 	Unit,

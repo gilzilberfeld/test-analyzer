@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import testanalyzer.helpers.TestLocator;
+import testanalyzer.model.TestType;
 import testanalyzer.parsing.TestClassAdapter;
-import testanalyzer.parsing.TestType;
 
 class TestScoreTests {
 
