@@ -51,8 +51,8 @@ class TestCountingTests {
 	void empty_when_accessing_data_when_no_tests() throws Exception {
 		tests = TestLocator.loadTestClass("SingleIgnoredTestWithExpected");
 		TestInfo testInfo = tests.getInfoForTest(0);
-		assertThat(testInfo.assertCount, is(0));
-		assertThat(testInfo.assertCount, is(0));
+		assertThat(testInfo.totalAssertCount, is(0));
+		assertThat(testInfo.totalAssertCount, is(0));
 	}
 
 }

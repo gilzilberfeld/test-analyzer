@@ -46,7 +46,7 @@ public class AssertInfoHelper {
 		tests.forEach( ti -> {
 			calledMethods.listFor(ti.testName)
 				.forEach( calledMethod -> {
-					ti.assertCount += 
+					ti.totalAssertCount += 
 							assertingMethods.getAssertCountFor(calledMethod); 
 			});
 		});

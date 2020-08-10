@@ -38,10 +38,10 @@ public class TestChecker extends VoidVisitorAdapter<Void> {
 	private void createTestInfo(MethodDeclaration method) {
 		TestInfo testInfo = testClassInfo.createTestInfo(method.getNameAsString());
 		if (TestRules.hasExpected(method)) {
-			testInfo.assertCount = 1;
+			testInfo.totalAssertCount = 1;
 		}
 		AssertCountInfo assertCountInfo = assertInfo.getAssertCountInfo(method);
-		testInfo.assertCount += assertCountInfo.assertCount;
+		testInfo.totalAssertCount += assertCountInfo.assertCount;
 		testInfo.assertNotNullCount += assertCountInfo.assertNotNullCount;
 		testInfo.type = TestRules.getType(method, testClassInfo.type);
 		testClassInfo.incrementTests();

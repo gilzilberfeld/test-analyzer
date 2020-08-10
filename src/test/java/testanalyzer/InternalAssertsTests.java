@@ -75,6 +75,6 @@ class InternalAssertsTests {
 
 	private void assertAssertCountFor(int testID, String testName, int assertCount) throws Exception {
 		assertThat(tests.getInfoForTest(testID).testName, is(testName));
-		assertThat(tests.getInfoForTest(testID).assertCount, is(assertCount));
+		assertThat(tests.getInfoForTest(testID).totalAssertCount, is(assertCount));
 	}
 }

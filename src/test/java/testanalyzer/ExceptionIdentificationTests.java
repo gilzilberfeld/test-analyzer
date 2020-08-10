@@ -15,14 +15,14 @@ class ExceptionIdentificationTests {
 	@Test
 	void one_when_contains_expected_annotation() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTestWithExpectedJUnit4");
-		assertThat(tests.getInfoForTest(0).assertCount, is(1));
+		assertThat(tests.getInfoForTest(0).totalAssertCount, is(1));
 	}
 
 	
 	@Test
 	void one_when_contains_expected_rule_junit4() throws Exception {
 		tests = TestLocator.loadTestClass("ExceptionRuleJunit4Test");
-		assertThat(tests.getInfoForTest(0).assertCount, is(1));
+		assertThat(tests.getInfoForTest(0).totalAssertCount, is(1));
 	}
 
 }

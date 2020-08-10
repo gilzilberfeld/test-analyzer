@@ -15,28 +15,28 @@ class AssertIdentificationTests{
 	@Test
 	void zero_when_contains_no_asserts() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTest");
-		assertThat(tests.getInfoForTest(0).assertCount, is(0));
+		assertThat(tests.getInfoForTest(0).totalAssertCount, is(0));
 	}
 
 	@Test
 	void two_when_contains_two_asserts() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTestWithTwoAsserts");
-		assertThat(tests.getInfoForTest(0).assertCount, is(2));
+		assertThat(tests.getInfoForTest(0).totalAssertCount, is(2));
 	}
 
 	@Test
 	void one_when_contains_a_single_assert_with_two_tests() throws Exception {
 		tests = TestLocator.loadTestClass("TwoTestWithOneAssert");
-		assertThat(tests.getInfoForTest(0).assertCount, is(0));
-		assertThat(tests.getInfoForTest(1).assertCount, is(1));
+		assertThat(tests.getInfoForTest(0).totalAssertCount, is(0));
+		assertThat(tests.getInfoForTest(1).totalAssertCount, is(1));
 	}
 
 	
 	@Test
 	void correct_count_on_combo() throws Exception {
 		tests = TestLocator.loadTestClass("TwoTestWithOneAssertAndMethods");
-		assertThat(tests.getInfoForTest(0).assertCount, is(0));
-		assertThat(tests.getInfoForTest(1).assertCount, is(1));
+		assertThat(tests.getInfoForTest(0).totalAssertCount, is(0));
+		assertThat(tests.getInfoForTest(1).totalAssertCount, is(1));
 	}
 	
 
