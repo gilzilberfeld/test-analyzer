@@ -18,20 +18,33 @@ public class AssertChecker extends VoidVisitorAdapter<Void> {
 		if (name.contains("assertNotNull"))
 			assertNotNullCount++;
 		if (name.contains("assertEquals") && 
-				containsStatus(method))
+				parametersContainStatus(method))
+			assertOnStatusCount++;
+		if (name.contains("assertTrue") && 
+				firstParameterContainStatus(method))
 			assertOnStatusCount++;
 	}
 
-	private boolean containsStatus(MethodCallExpr method) {
-		String firstParam = method.getChildNodes().get(1).toString().toLowerCase();
-		String secondParam = method.getChildNodes().get(2).toString().toLowerCase();
-		return eitherContains(firstParam, secondParam, "status") ||
-				eitherContains(firstParam, secondParam, "getStatusCodeValue");
+	private boolean firstParameterContainStatus(MethodCallExpr method) {
+		String firstParam = getParamExpression(1, method);		
+		return containsStatusString(firstParam);
 	}
 
-	private boolean eitherContains(String firstParam, String secondParam, String string) {
-		return firstParam.contains(string) || 
-				secondParam.contains(string);
+
+	private boolean parametersContainStatus(MethodCallExpr method) {
+		String secondParam = getParamExpression(2, method);
+		return firstParameterContainStatus(method) || containsStatusString(secondParam);
+	}
+	
+	private boolean containsStatusString(String paramExpression) {
+		return paramExpression.contains("getstatuscodevalue") || 
+				paramExpression.contains("status");
+	}
+
+	
+	
+	private String getParamExpression(int id, MethodCallExpr method) {
+		return method.getChildNodes().get(id).toString().toLowerCase();
 	}
 
 	private int countExpects(MethodCallExpr method) {

@@ -36,12 +36,18 @@ class AssertOnStatusTests {
 		testNumber(3).has(1).assertsOnStatus();
 	}
 
-	/*
 	
 	@Test
-	void OneAssertTruesOnStatus_RestTemplate() {
+	void assertTrue_OnRestTemplateResponseEntityStatus_one() throws Exception {
+		testNumber(4).has(1).assertsOnStatus();
 	}
-	
+
+	@Test
+	void assertTrue_OnVariableNamedStatus__one() throws Exception {
+		testNumber(5).has(1).assertsOnStatus();
+	}
+	/*
+
 	@Test
 	void OneAssertOnStatus_mockMvc() {
 	}

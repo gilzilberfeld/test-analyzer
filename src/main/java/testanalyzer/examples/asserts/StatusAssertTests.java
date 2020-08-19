@@ -33,4 +33,18 @@ class StatusAssertTests {
 		ResponseEntity<String> result = restTemplate.exchange("http://localhost", HttpMethod.POST, request ,String.class);
     	assertEquals(200, result.getStatusCodeValue());
 	}
+	
+	@Test
+	void test_sa5() {
+		HttpEntity<String> request = new HttpEntity<>("bar");
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> result = restTemplate.exchange("http://localhost", HttpMethod.POST, request ,String.class);
+    	assertTrue(200 == result.getStatusCodeValue());
+	}
+
+	@Test
+	void test_sa6() {
+		var aStatus = 200;
+    	assertTrue(200 ==aStatus);
+	}
 }
