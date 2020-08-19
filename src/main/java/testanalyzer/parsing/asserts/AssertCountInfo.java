@@ -4,5 +4,6 @@ public class AssertCountInfo {
 
 	public int assertCount;
 	public int assertNotNullCount;
+	public int assertOnStatusCount;
 
 }

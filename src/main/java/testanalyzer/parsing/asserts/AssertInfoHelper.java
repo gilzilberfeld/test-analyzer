@@ -40,6 +40,7 @@ public class AssertInfoHelper {
 		method.accept(assertChecker, null);
 		assertInfo.assertCount= assertChecker.assertCount;
 		assertInfo.assertNotNullCount = assertChecker.assertNotNullCount;
+		assertInfo.assertOnStatusCount = assertChecker.assertOnStatusCount;
 	}
 
 	public void updateTestInfos(List<TestInfo> tests) {

@@ -43,6 +43,7 @@ public class TestChecker extends VoidVisitorAdapter<Void> {
 		AssertCountInfo assertCountInfo = assertInfo.getAssertCountInfo(method);
 		testInfo.totalAssertCount += assertCountInfo.assertCount;
 		testInfo.assertNotNullCount += assertCountInfo.assertNotNullCount;
+		testInfo.assertStatusCount += assertCountInfo.assertOnStatusCount;
 		testInfo.type = TestRules.getType(method, testClassInfo.type);
 		testClassInfo.incrementTests();
 	}
