@@ -25,7 +25,13 @@ public class AssertChecker extends VoidVisitorAdapter<Void> {
 	private boolean containsStatus(MethodCallExpr method) {
 		String firstParam = method.getChildNodes().get(1).toString().toLowerCase();
 		String secondParam = method.getChildNodes().get(2).toString().toLowerCase();
-		return firstParam.contains("status") || secondParam.contains("status");
+		return eitherContains(firstParam, secondParam, "status") ||
+				eitherContains(firstParam, secondParam, "getStatusCodeValue");
+	}
+
+	private boolean eitherContains(String firstParam, String secondParam, String string) {
+		return firstParam.contains(string) || 
+				secondParam.contains(string);
 	}
 
 	private int countExpects(MethodCallExpr method) {

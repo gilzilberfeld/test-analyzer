@@ -3,6 +3,10 @@ package testanalyzer.examples.asserts;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 class StatusAssertTests {
 
@@ -16,4 +20,17 @@ class StatusAssertTests {
 		assertEquals(status, 200);
 	}
 
+	@Test
+	void test_sa3() {
+		var aStatus = 200;
+		assertEquals(200, aStatus);
+	}
+	
+	@Test
+	void test_sa4() {
+		HttpEntity<String> request = new HttpEntity<>("bar");
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> result = restTemplate.exchange("http://localhost", HttpMethod.POST, request ,String.class);
+    	assertEquals(200, result.getStatusCodeValue());
+	}
 }

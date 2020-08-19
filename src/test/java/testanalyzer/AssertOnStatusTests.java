@@ -28,12 +28,15 @@ class AssertOnStatusTests {
 	@Test
 	void assertEqualsOnVariableNamedStatus_one() throws Exception {
 		testNumber(1).has(1).assertsOnStatus();
+		testNumber(2).has(1).assertsOnStatus();
+	}
+
+	@Test
+	void assertEqualsOnRestTemplateResponseEntityStatus_one() throws Exception {
+		testNumber(3).has(1).assertsOnStatus();
 	}
 
 	/*
-	@Test
-	void OneAssertEqualsOnStatusDirect_RestTemplate() {
-	}
 	
 	@Test
 	void OneAssertTruesOnStatus_RestTemplate() {
