@@ -16,8 +16,10 @@ import testanalyzer.parsing.rules.TestClassRules;
 public class TestClassParser {
 
 	private CompilationUnit cu;
+	private String path;
 
 	public TestClassParser(String path) throws Exception {
+		this.path = path;
 		this.cu = StaticJavaParser.parse(new File(path));
 	}
 
@@ -33,6 +35,7 @@ public class TestClassParser {
 		TestChecker testChecker = new TestChecker(testClassInfo, assertHelper);
 		cu.accept(testChecker, null);
 		assertHelper.updateTestInfos(testClassInfo.testsInfo);
+		testClassInfo.classPath = this.path;
 		return testClassInfo;
 	}
 
@@ -41,6 +44,7 @@ public class TestClassParser {
 		Optional<String> primaryTypeName = cu.getPrimaryTypeName();
 		if (primaryTypeName.isPresent() && TestClassRules.isTestClass(cu))
 			return primaryTypeName.get();
+		
 		return TestClassInfo.NoName;
 	}
 

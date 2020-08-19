@@ -42,4 +42,8 @@ public class TestClassAdapter {
 		return parser.getTestClassInfo().type;
 	}
 
+	public String getPath() throws Exception {
+		return parser.getTestClassInfo().classPath;
+	}
+
 }

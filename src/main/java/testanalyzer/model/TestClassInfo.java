@@ -15,6 +15,7 @@ public class TestClassInfo implements Serializable {
 	public int numberOfValidTests;
 	public String testClassName;
 	public TestClassType type;
+	public String classPath;
 	
 	public TestClassInfo(TestClassType testClassType, String testClassName) {
 		this.testClassName = testClassName;

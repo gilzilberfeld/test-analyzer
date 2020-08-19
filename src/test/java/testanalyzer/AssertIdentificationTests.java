@@ -38,18 +38,5 @@ class AssertIdentificationTests{
 		assertThat(tests.getInfoForTest(0).totalAssertCount, is(0));
 		assertThat(tests.getInfoForTest(1).totalAssertCount, is(1));
 	}
-	
 
-
-	/*
-
-	
-	@Test
-	void test_only_assertnotnull() {}
-
-	
-	@Test
-	void test_status_and_only_assertnotnull() {}
-
- */
 }

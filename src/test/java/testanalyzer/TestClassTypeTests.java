@@ -1,4 +1,5 @@
 package testanalyzer;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +37,19 @@ class TestClassTypeTests {
 		tests = TestLocator.loadTestClass("SpringBootTests");
 		testClass().isType(TestClassType.SpringBoot);
 	}
+	
+	@Test
+	void testClass_identifyFullPath() throws Exception {
+		tests = TestLocator.loadTestClass("SpringBootTests");
+		testClass().containsPath("src\\main\\java");
+		testClass().containsPath("test-analyzer");
+	}
 
+
+
+	private void containsPath(String path) throws Exception {
+		assertThat(tests.getPath(), containsString(path));
+	}
 
 	private TestClassTypeTests testClass() {
 		return this;

@@ -36,7 +36,7 @@ public class TestLocator {
 				(path, attr) -> path.getFileName().toString().equals(fileName))) {
 			Optional<Path> result = stream.findFirst();
 			if (result.isPresent()) {
-				filePath = result.get().toString();
+				filePath = result.get().toAbsolutePath().toString();
 			}
 
 		} catch (IOException e) {

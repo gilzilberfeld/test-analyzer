@@ -32,6 +32,7 @@ class SerializationTests {
 		assertThat(json, containsString("totalAssertCount"));
 		assertThat(json, containsString("assertNotNull"));
 		assertThat(json, containsString("assertStatusCount"));
+		assertThat(json, containsString("classPath"));
 	}
 
 	@Test
@@ -54,7 +55,6 @@ class SerializationTests {
 		assertThat(json, containsString("TwoTestWithOneAssert"));
 		assertThat(json, containsString("TwoTestWithOneAssertAndMethods"));
 		assertThat(json, containsString("testClassType"));
-
 	}
 
 	@Test
