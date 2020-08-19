@@ -31,6 +31,7 @@ class SerializationTests {
 		assertThat(json, containsString("Unit"));
 		assertThat(json, containsString("totalAssertCount"));
 		assertThat(json, containsString("assertNotNull"));
+		assertThat(json, containsString("assertStatusCount"));
 	}
 
 	@Test

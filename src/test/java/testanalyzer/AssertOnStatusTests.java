@@ -43,20 +43,15 @@ class AssertOnStatusTests {
 	}
 
 	@Test
-	void assertTrue_OnVariableNamedStatus__one() throws Exception {
+	void assertTrue_OnVariableNamedStatus_one() throws Exception {
 		testNumber(5).has(1).assertsOnStatus();
 	}
-	/*
 
 	@Test
-	void OneAssertOnStatus_mockMvc() {
+	void OneAssertOnStatus_mockMvc() throws Exception {
+		testNumber(6).has(1).assertsOnStatus();
 	}
 	
-	@Test
-	void SerializationTest() {
-	}
-	
-	*/
 	private AssertOnStatusTests testNumber(int tn) {
 		this.testNumber = tn;
 		return this;

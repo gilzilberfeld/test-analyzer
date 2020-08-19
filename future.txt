@@ -7,3 +7,5 @@ Internal calls :
 Test type:	
 	identify recorded API tests (with called API)
 
+Ranking:
+	AssertTrue instead of Equals

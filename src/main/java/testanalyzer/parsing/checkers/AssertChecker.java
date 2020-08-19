@@ -11,18 +11,48 @@ public class AssertChecker extends VoidVisitorAdapter<Void> {
 	
 	@Override
 	public void visit(MethodCallExpr method, Void arg) {
-		String name = method.getName().toString();
-		if (name.contains("assert"))
+		countAsserts(method);
+		countAssertsNotNull(method);
+		countStatusAsserts(method);
+	}
+
+	private void countStatusAsserts(MethodCallExpr method) {
+		if (assertsEqualsOnStatus(method) ||
+				assertsTrueOnStatus(method) ||
+				assertsOnMockMvcStatus(method))
+			assertOnStatusCount++;
+	}
+
+	private boolean assertsOnMockMvcStatus(MethodCallExpr method) {
+		return method.toString().contains("status()");
+	}
+
+	private boolean assertsTrueOnStatus(MethodCallExpr method) {
+		return getMethodName(method).contains("assertTrue") && 
+				firstParameterContainStatus(method);
+	}
+
+	private boolean assertsEqualsOnStatus(MethodCallExpr method) {
+		return getMethodName(method).contains("assertEquals") && 
+				parametersContainStatus(method);
+	}
+
+
+	private void countAssertsNotNull(MethodCallExpr method) {
+		if (getMethodName(method).contains("assertNotNull"))
+			assertNotNullCount++;
+	}
+
+	private void countAsserts(MethodCallExpr method) {
+		if (getMethodName(method).contains("assert"))
 			assertCount++;
 		assertCount += countExpects(method);
-		if (name.contains("assertNotNull"))
-			assertNotNullCount++;
-		if (name.contains("assertEquals") && 
-				parametersContainStatus(method))
-			assertOnStatusCount++;
-		if (name.contains("assertTrue") && 
-				firstParameterContainStatus(method))
-			assertOnStatusCount++;
+	}
+
+	private int countExpects(MethodCallExpr method) {
+		String fullExpression = method.toString();
+		String andExpectTerm = "andExpect\\(";
+		return fullExpression.split(andExpectTerm, -1).length-1;
 	}
 
 	private boolean firstParameterContainStatus(MethodCallExpr method) {
@@ -47,10 +77,8 @@ public class AssertChecker extends VoidVisitorAdapter<Void> {
 		return method.getChildNodes().get(id).toString().toLowerCase();
 	}
 
-	private int countExpects(MethodCallExpr method) {
-		String fullExpression = method.toString();
-		String andExpectTerm = "andExpect\\(";
-		return fullExpression.split(andExpectTerm, -1).length-1;
-	}
 
+	private String getMethodName(MethodCallExpr method) {
+		return method.getName().toString();
+	}
 }
