@@ -3,6 +3,7 @@ package testanalyzer.export;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -19,18 +20,18 @@ public class MultipleFileManagerTests {
 
 	private static final String TESTS_PATH = "src/main/java/testanalyzer/examples/asserts";
 	private TestContainer testContainer;
-	private MultiFileManager multiFileExporter;
+	private MultiFileManager multiFileManager;
 	private String content;
 	
 	@BeforeEach
 	public void setup() throws Exception {
 		testContainer = TestContainer.LoadFrom(TESTS_PATH);
-		multiFileExporter = new MultiFileManager(testContainer, "XXXX");
+		multiFileManager = new MultiFileManager(testContainer, "XXXX");
 	}
 	
 	@Test
 	public void hasCorrectRunFileName() throws Exception {
-		assertThat(multiFileExporter.getRunInfoFile().name, 
+		assertThat(multiFileManager.getRunInfoFile().name, 
 				is("TA_XXXX_Run.json"));
 	}
 	
@@ -43,9 +44,9 @@ public class MultipleFileManagerTests {
 	
 	@Test
 	public void hasCorrectClassFileName() throws Exception {
-		assertThat(multiFileExporter.getNextClassFile().name, 
+		assertThat(multiFileManager.getNextClassFile().name, 
 				is("TA_XXXX_Class_0.json"));
-		assertThat(multiFileExporter.getNextClassFile().name, 
+		assertThat(multiFileManager.getNextClassFile().name, 
 				is("TA_XXXX_Class_1.json"));
 	}
 	
@@ -53,37 +54,47 @@ public class MultipleFileManagerTests {
 	public void hasCorrectClassFileContent() throws Exception {
 		classFileContent().contains("testClassName");
 		classFileContent().contains("testClassType");
+	//	classFileContent().doesNotContain("all");
 	}
+
 
 
 	@Test
 	public void hasCorrectTestFileName() throws Exception {
-		assertThat(multiFileExporter.getNextTestFiles().get(0).name, 
+		multiFileManager.getNextClassFile();
+		assertThat(multiFileManager.getNextTestFiles().get(0).name, 
 				is("TA_XXXX_Test_0.json"));
-		assertThat(multiFileExporter.getNextTestFiles().get(0).name, 
+		assertThat(multiFileManager.getNextTestFiles().get(0).name, 
 				is("TA_XXXX_Test_1.json"));
 	}
 
 	@Test 
 	void hasCorrectTestContent() throws Exception {
+		multiFileManager.getNextClassFile();
 		testFileContent().contains("testName");
 		testFileContent().contains("testClassPath");
 	}
 	
 	private MultipleFileManagerTests testFileContent() throws Exception {
-		content = multiFileExporter.getNextTestFiles().get(0).content;
+		content = multiFileManager.getNextTestFiles().get(0).content;
 		return this;
 	}
 
 	private MultipleFileManagerTests classFileContent() throws Exception {
-		content =multiFileExporter.getNextClassFile().content; 
+		content =multiFileManager.getNextClassFile().content; 
 		return this;
 	}
 
 	private void runFileContentHas(String param) throws Exception {
-		assertThat(multiFileExporter.getRunInfoFile().content, containsString(param));
+		assertThat(multiFileManager.getRunInfoFile().content, containsString(param));
 	}
 	private void contains(String param) {
 		assertThat(content, containsString(param));
 	}
+	
+	private void doesNotContain(String param) {
+		assertThat(content, not(containsString(param)));
+		
+	}
+
 }

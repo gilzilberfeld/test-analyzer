@@ -12,7 +12,7 @@ import testanalyzer.parsing.TestClassAdapter;
 public class MultiFileManager {
 
 	TestContainer testContainer;
-	private int classCounter = 0;
+	private int classCounter = -1;
 	private int testCounter = 0;
 	private String id;
 	
@@ -31,9 +31,9 @@ public class MultiFileManager {
 	}
 	
 	public ClassFileInfo getNextClassFile() throws Exception {
+		classCounter++;
 		TestClassAdapter testClass = testContainer.testClasses.get(classCounter);
 		ClassFileInfo classFileInfo = new ClassFileInfo(id, classCounter, testClass);
-		classCounter++;
 		return classFileInfo;
 	}
 

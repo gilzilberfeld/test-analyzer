@@ -3,9 +3,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,13 +20,19 @@ public class MultiFileSerializationTests {
 	
 	@BeforeEach
 	public void setup() throws IOException {
-		//outputDir = Files.createTempDirectory("any");
-		outputDir = Paths.get("C:\\Users\\Gil\\AppData\\Local\\Temp\\any16463833377661701882");
+		outputDir = Files.createTempDirectory("any");
 	}
 
 	@AfterEach
-	public void tearDown() {
-		
+	public void tearDown() throws IOException {
+		 deleteOutputDir();
+	}
+
+	private void deleteOutputDir() throws IOException {
+		Files.walk(outputDir)
+	      .sorted(Comparator.reverseOrder())
+	      .map(Path::toFile)
+	      .forEach(File::delete);
 	}
 	
 	@Test
@@ -33,6 +41,7 @@ public class MultiFileSerializationTests {
 		File dir = new File(outputDir.toString());
 		assertTrue (runFileExists(dir));
 		assertTrue (classFilesExist(dir));
+		assertTrue (testFilesExist(dir));
 	}
 
 	private boolean runFileExists(File dir) {
@@ -46,6 +55,13 @@ public class MultiFileSerializationTests {
 		return Arrays.stream(dir.listFiles())
 			.anyMatch((file) ->{
 				return file.getName().contains("_Class_");
+		});
+	}
+
+	private boolean testFilesExist(File dir) {
+		return Arrays.stream(dir.listFiles())
+			.anyMatch((file) ->{
+				return file.getName().contains("_Test_");
 		});
 	}
 }

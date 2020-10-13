@@ -1,11 +1,9 @@
 package testanalyzer.export;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
 
 import testanalyzer.TestContainer;
 
@@ -49,11 +47,22 @@ public class MultiFileExporter {
 
 	}
 
-	private static void writeClassContentFiles(TestContainer testContainer) {
-		// TODO Auto-generated method stub
-//		testContainer.testClasses.forEach((testClass) -> {
-//			Path file = outputPath.resolve
-//		}
+	private static void writeClassContentFiles(TestContainer testContainer) throws Exception {
+			for (int i=0; i< testContainer.getTestClassCount(); i++) {
+				ClassFileInfo nextClassFile = fileManager.getNextClassFile();
+				Path file = outputPath.resolve(nextClassFile.name);
+				Files.write(file, nextClassFile.content.getBytes());
+				List<TestFileInfo> nextTestFiles = fileManager.getNextTestFiles();
+				nextTestFiles.forEach(testFile -> {
+					Path testfile = outputPath.resolve(testFile.name);
+					try {
+						Files.write(testfile, testFile.content.getBytes());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
+			}
 	}
 
 	private static void writeRunContentFile() throws Exception {
