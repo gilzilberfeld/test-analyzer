@@ -41,6 +41,7 @@ public class TestChecker extends VoidVisitorAdapter<Void> {
 			testInfo.totalAssertCount = 1;
 		}
 		AssertCountInfo assertCountInfo = assertInfo.getAssertCountInfo(method);
+		testInfo.testClassPath = testClassInfo.classPath;
 		testInfo.totalAssertCount += assertCountInfo.assertCount;
 		testInfo.assertNotNullCount += assertCountInfo.assertNotNullCount;
 		testInfo.assertStatusCount += assertCountInfo.assertOnStatusCount;

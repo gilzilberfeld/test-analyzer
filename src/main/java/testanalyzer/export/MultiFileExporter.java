@@ -38,14 +38,21 @@ public class MultiFileExporter {
 	}
 
 	public String getClassFileNameFor(int i) {
-		ClassFileInfo cfi = new ClassFileInfo();
-		cfi.name ="TA_" + id + "_Class_" + Integer.toString(i) + ".json";
-		return cfi.name;
+		return "TA_" + id + "_Class_" + Integer.toString(i) + ".json";
 	}
 
-	public String getClassFileContentFor(int i) throws Exception {
+	public String getNextClassFileContent() throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(testContainer.testClasses.get(i));
+		return mapper.writeValueAsString(testContainer.testClasses.get(0));
+	}
+
+	public String getTestFileNameFor(int i) {
+		return "TA_" + id + "_Test_" + Integer.toString(i) + ".json";
+	}
+
+	public String getNextTestFileContent() throws Exception, Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(testContainer.testClasses.get(0).getInfoForTest(0));
 	}
 
 }

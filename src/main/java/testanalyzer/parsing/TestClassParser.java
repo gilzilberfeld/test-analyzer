@@ -31,11 +31,11 @@ public class TestClassParser {
 
 	public TestClassInfo getTestClassInfo() throws Exception {
 		TestClassInfo testClassInfo = new TestClassInfo(getTestClassType(), getTestClassName());
+		testClassInfo.classPath = this.path;
 		AssertInfoHelper assertHelper = new AssertInfoHelper();
 		TestChecker testChecker = new TestChecker(testClassInfo, assertHelper);
 		cu.accept(testChecker, null);
 		assertHelper.updateTestInfos(testClassInfo.testsInfo);
-		testClassInfo.classPath = this.path;
 		return testClassInfo;
 	}
 
