@@ -1,4 +1,4 @@
-package testanalyzer;
+package testanalyzer.export;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -9,10 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import testanalyzer.TestContainer;
 import testanalyzer.helpers.TestLocator;
 import testanalyzer.parsing.TestClassAdapter;
 
-class SerializationTests {
+class SingleFileSerializationTests {
 
 	private static final String TESTS_PATH = "src/main/java/testanalyzer/examples/asserts";
 	private static final String TEST_COUNT = ":2,";

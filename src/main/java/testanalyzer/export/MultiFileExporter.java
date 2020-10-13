@@ -1,58 +1,70 @@
 package testanalyzer.export;
 
-import java.util.UUID;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import testanalyzer.TestContainer;
 
 public class MultiFileExporter {
+	static MultiFileManager fileManager;
+	static Path outputPath;
 
-	TestContainer testContainer;
-	private String id;
-	
-	public MultiFileExporter(TestContainer testContainer, String id) {
-		this.testContainer = testContainer;
-		this.id = id;
+	public static void writeJson(String pathToFolder, String outputFolder) throws Exception {
+		outputPath = Path.of(outputFolder);
+
+		TestContainer testContainer = TestContainer.LoadFrom(pathToFolder);
+		fileManager = new MultiFileManager(testContainer);
+
+		CreateFolderIfNeeded();
+		writeRunContentFile();
+		writeClassContentFiles(testContainer);
+//	
+//	getAllTestClassInfo.forEach(()-> {
+//		fileName = GetNextClassName();
+//		write ( fileName, classContent);
+//	});
+//	
+//	getAllTestInfo.forEach(()-> {
+//		fileName = GetNextClassName();
+//		write ( fileName, classContent);
+//	}
+//	
+//	
+//	
+//	
+//	
+//	try (FileWriter outputFile = new FileWriter(outputFolderName)){
+//		String json = testContainer.toJson();
+//		outputFile.write(json);
+//	} catch (Exception e) {
+//		System.out.println("Test Analyzer error:");
+//		e.printStackTrace();
+//	}
+//}
+//
+
+	}
+
+	private static void writeClassContentFiles(TestContainer testContainer) {
+		// TODO Auto-generated method stub
+//		testContainer.testClasses.forEach((testClass) -> {
+//			Path file = outputPath.resolve
+//		}
+	}
+
+	private static void writeRunContentFile() throws Exception {
+		Path file = outputPath.resolve(fileManager.getRunInfoFile().name);
+		Files.write(file, fileManager.getRunInfoFile().content.getBytes());
 	}
 	
-	public MultiFileExporter(TestContainer testContainer) {
-		this(testContainer, UUID.randomUUID().toString());
+
+	private static void CreateFolderIfNeeded() throws IOException {
+		if (Files.notExists(outputPath)) {
+			Files.createDirectory(outputPath);
+		}
 	}
-
-	public String getRunFileName() {
-		return "TA_" + id + "_Run.json";
-	}
-
-	public String getRunFileContent() throws Exception {
-		RunFileContent rfc = new RunFileContent();
-		rfc.path = testContainer.path;
-		rfc.testClassCount = testContainer.getTestClassCount();
-		return rfc.toJson();
-	}
-
-
-	public int getClassFileCount() {
-		return this.testContainer.getTestClassCount();
-	}
-
-	public String getClassFileNameFor(int i) {
-		return "TA_" + id + "_Class_" + Integer.toString(i) + ".json";
-	}
-
-	public String getNextClassFileContent() throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(testContainer.testClasses.get(0));
-	}
-
-	public String getTestFileNameFor(int i) {
-		return "TA_" + id + "_Test_" + Integer.toString(i) + ".json";
-	}
-
-	public String getNextTestFileContent() throws Exception, Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(testContainer.testClasses.get(0).getInfoForTest(0));
-	}
-
 }
