@@ -29,8 +29,7 @@ public class TestClassAdapter {
 		return new TestInfo();
 	}
 
-	@JsonIgnore
-	public String getClassName() throws Exception {
+	public String getTestClassName() throws Exception {
 		return parser.getTestClassName();
 	}
 

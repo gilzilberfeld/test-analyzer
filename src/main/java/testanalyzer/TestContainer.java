@@ -60,7 +60,7 @@ public class TestContainer implements Serializable{
 	}
 
 	private boolean thereAreTestsIn(TestClassAdapter tests) throws Exception {
-		return !(tests.getClassName().equals(TestClassInfo.NoName));
+		return !(tests.getTestClassName().equals(TestClassInfo.NoName));
 	}
 	
 	public int getTestClassCount() {

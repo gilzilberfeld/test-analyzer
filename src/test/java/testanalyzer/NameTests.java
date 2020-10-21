@@ -15,26 +15,26 @@ class NameTests {
 	@Test
 	void not_test_class_when_empty_class() throws Exception {
 		tests = TestLocator.loadTestClass("EmptyClass");
-		assertThat(tests.getClassName(), is(TestClassInfo.NoName));
+		assertThat(tests.getTestClassName(), is(TestClassInfo.NoName));
 
 	}
 
 	@Test
 	void not_test_class_when_not_a_test_class() throws Exception {
 		tests = TestLocator.loadTestClass("NonTestClass");
-		assertThat(tests.getClassName(), is(TestClassInfo.NoName));
+		assertThat(tests.getTestClassName(), is(TestClassInfo.NoName));
 	}
 
 	@Test
 	void no_test_class_when_interface() throws Exception {
 		tests = TestLocator.loadTestClass("SomeInterface");
-		assertThat(tests.getClassName(), is(TestClassInfo.NoName));
+		assertThat(tests.getTestClassName(), is(TestClassInfo.NoName));
 	}
 
 	@Test
 	void class_name_when_test_class() throws Exception {
 		tests = TestLocator.loadTestClass("SingleTest");
-		assertThat(tests.getClassName(), is("SingleTest"));
+		assertThat(tests.getTestClassName(), is("SingleTest"));
 	}
 
 	@Test

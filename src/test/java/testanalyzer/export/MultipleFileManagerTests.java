@@ -52,9 +52,9 @@ public class MultipleFileManagerTests {
 	
 	@Test
 	public void hasCorrectClassFileContent() throws Exception {
-		classFileContent().contains("testClassName");
 		classFileContent().contains("testClassType");
-	//	classFileContent().doesNotContain("all");
+		classFileContent().doesNotContain("all");
+		classFileContent().contains("testClassName");
 	}
 
 
