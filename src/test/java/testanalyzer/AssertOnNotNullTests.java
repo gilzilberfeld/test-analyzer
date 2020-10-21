@@ -11,7 +11,7 @@ import testanalyzer.helpers.TestLocator;
 import testanalyzer.model.TestType;
 import testanalyzer.parsing.TestClassAdapter;
 
-class TestScoreTests {
+class AssertOnNotNullTests {
 
 	private TestClassAdapter tests;
 	private int testNumber;
@@ -39,12 +39,12 @@ class TestScoreTests {
 		testNumber(2).has(2).notNullAsserts();
 	}
 
-	private TestScoreTests testNumber(int tn) {
+	private AssertOnNotNullTests testNumber(int tn) {
 		this.testNumber = tn;
 		return this;
 	}
 
-	private TestScoreTests has(int expected) {
+	private AssertOnNotNullTests has(int expected) {
 		this.expected = expected;
 		return this;
 	}
